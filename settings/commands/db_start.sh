@@ -1,8 +1,7 @@
-# spin up mongo in the background
-sh ./settings/commands/db_start.sh &
-# install all the needed libs for the express server
-npm install
-# keep the express server running and tell it to watch for updates
-npx nodemon main.js &
-# allow the user to control the system
-bash
+# remove tmp's leftover from a bad shutdown
+rm -f /tmp/mongodb-27017.sock
+
+DATABASE_PATH="$(node -e 'console.log(require("./package.json").parameters.database.PATH)')"
+
+# if it fails try repairing it
+mongod --bind_ip 127.0.0.1 --dbpath "$DATABASE_PATH" || mongod --repair --bind_ip 127.0.0.1
