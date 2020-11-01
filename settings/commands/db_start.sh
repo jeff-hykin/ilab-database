@@ -1,8 +1,8 @@
 # spin up mongo in the background
-sh ./actions/start_mongo.sh &
+sh ./settings/commands/db_start.sh &
 # install all the needed libs for the express server
 npm install
 # keep the express server running and tell it to watch for updates
-nodemon main.js &
+npx nodemon main.js &
 # allow the user to control the system
 bash
