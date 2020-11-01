@@ -3,6 +3,7 @@
   "parameters": {
     "port": 3000,
     "database": {
+      "PATH": "./database",
       "DEFAULT_COLLECTION": "main",
       "DEFAULT_DATABASE": "main",
       "MONGO_USERNAME": "admin",
