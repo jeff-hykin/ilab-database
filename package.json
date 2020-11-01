@@ -1,0 +1,31 @@
+{
+  "name": "ez_database",
+  "parameters": {
+    "port": 3000,
+    "database": {
+      "DEFAULT_COLLECTION": "main",
+      "DEFAULT_DATABASE": "main",
+      "MONGO_USERNAME": "admin",
+      "MONGO_PORT": 27017,
+      "MONGO_ADDRESS": "localhost"
+    },
+    "pathToCompressionMapping": "./source/compression_mapping.json"
+  },
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {},
+  "keywords": [],
+  "author": "",
+  "bugs": {},
+  "dependencies": {
+    "require-all": "3.0.0",
+    "crypto-js": "4.0.0",
+    "big-integer": "1.6.48",
+    "cors": "^2.8.5",
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "good-js": "1.5.2",
+    "mongodb": "^3.5.4"
+  }
+}

@@ -2,6 +2,7 @@
 # My own
 # 
 *.nosync*
+database/
 
 # 
 # Linux
@@ -51,9 +52,6 @@ Temporary Items
 # 
 # Windows
 # 
-
-# visual studio projects
-*.cache
 
 # Windows thumbnail cache files
 Thumbs.db
@@ -572,3 +570,4 @@ dkms.conf
 
 # Executables
 *.out
+
