@@ -1,13 +1,5 @@
-#!/usr/bin/env bash 
-
 # 
-# get parameters from the json file
-# 
-DEFAULT_DATABASE="$(node -e 'console.log(require("./package.json").parameters.database.DEFAULT_DATABASE)')"
-DEFAULT_COLLECTION="$(node -e 'console.log(require("./package.json").parameters.database.DEFAULT_COLLECTION)')"
-
-# 
-# get the backup name
+# generate the backup name
 # 
 backup_name="$1"
 if [[ "$1" = "" ]] 
@@ -51,4 +43,4 @@ fi
 # 
 # actually do the backing up
 #
-mongodump -d "$DEFAULT_DATABASE" -o "$backup_name"
+mongodump -o "$backup_name"
