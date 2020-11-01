@@ -18,6 +18,7 @@ in
             # main packages
             normalPackages.nodejs
             normalPackages.mongodb
+            normalPackages.mongodb-tools
             # basic commandline tools
             normalPackages.ripgrep
             normalPackages.which
