@@ -24,7 +24,7 @@ module.exports = {
         }
     },
 
-    async connectToMongoDb({fullUrl, address, port, username, database, pathToMongoLock}) {
+    async connectToMongoDb({address, port, username, database, pathToMongoLock, fullUrl}) {
         let attemptConnection
         const mongoUrl = `mongodb://${address}:${port}/${username}/${database}`
         attemptConnection = async (resolve, reject)=>{
