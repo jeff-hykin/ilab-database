@@ -2,15 +2,14 @@
   "name": "ez_database",
   "parameters": {
     "port": 3000,
-    "database": {
-      "PATH": "./database",
-      "DEFAULT_COLLECTION": "main",
-      "DEFAULT_DATABASE": "main",
-      "MONGO_USERNAME": "admin",
-      "MONGO_PORT": 27017,
-      "MONGO_ADDRESS": "localhost"
-    },
-    "pathToCompressionMapping": "./source/compression_mapping.json"
+    "databaseSetup": {
+      "pathToMongoLock": "/data/db/mongod.lock",
+      "database": "main",
+      "username": "admin",
+      "port": 27017,
+      "databasePath": "./database",
+      "address": "localhost"
+    }
   },
   "version": "1.0.0",
   "description": "",
@@ -25,9 +24,11 @@
     "cors": "^2.8.5",
     "crypto-js": "4.0.0",
     "express": "^4.17.1",
+    "ez-rpc": "file:./ez-rpc/javascript",
     "good-js": "1.5.2",
     "mongodb": "^3.5.4",
     "nodemon": "^2.0.6",
-    "require-all": "3.0.0"
+    "require-all": "3.0.0",
+    "uuid": "^8.3.1"
   }
 }

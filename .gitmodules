@@ -1,0 +1,3 @@
+[submodule "ez-rpc"]
+	path = ez-rpc
+	url = https://github.com/jeff-hykin/ez-rpc
