@@ -2,9 +2,10 @@ let package = require("../package.json")
 let ezRpc = require("../ez-rpc/javascript/backend")
 let { connectToMongoDb, mongoInterface } = require("./ezMongoDb/mongoSystem")
 
-connectToMongoDb(package.parameters.databaseSetup);
-(new ezRpc({
+connectToMongoDb(package.parameters.databaseSetup)
+new ezRpc({
     port: 4321,
+    startImmediately: true,
     interface: {
         mongoInterface,
         ...require('require-all')({
@@ -15,4 +16,4 @@ connectToMongoDb(package.parameters.databaseSetup);
             recursive: true,
         })
     },
-})).start()
+})
