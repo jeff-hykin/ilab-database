@@ -1,34 +1,102 @@
 {
-  "name": "ez_database",
-  "parameters": {
-    "port": 3000,
-    "databaseSetup": {
-      "pathToMongoLock": "/data/db/mongod.lock",
-      "database": "main",
-      "username": "admin",
-      "port": 27017,
-      "databasePath": "./database",
-      "address": "localhost"
+    "name": "ez_database",
+    "parameters": {
+        "port": 3000,
+        "databaseSetup": {
+            "pathToMongoLock": "/data/db/mongod.lock",
+            "database": "main",
+            "username": "admin",
+            "port": 27017,
+            "databasePath": "./database",
+            "address": "localhost"
+        }
+    },
+    "version": "1.0.0",
+    "description": "",
+    "main": "main.js",
+    "scripts": {},
+    "keywords": [],
+    "author": "",
+    "bugs": {},
+    "dependencies": {
+        "big-integer": "1.6.48",
+        "body-parser": "^1.19.0",
+        "cors": "^2.8.5",
+        "crypto-js": "4.0.0",
+        "express": "^4.17.1",
+        "ez-rpc": "file:./ez-rpc/javascript",
+        "good-js": "^1.5.2",
+        "mongodb": "^3.5.4",
+        "nodemon": "^2.0.6",
+        "require-all": "3.0.0",
+        "uuid": "^8.3.1"
+    },
+    "nix": {
+        "mainRepo": "a332da8588aeea4feb9359d23f58d95520899e3c",
+        "config": {
+            "allowUnfree": true
+        },
+        "packages": [
+            {
+                "load": "nodejs",
+                "from": "a332da8588aeea4feb9359d23f58d95520899e3c"
+            },
+            {
+                "load": "mongodb",
+                "from": "a332da8588aeea4feb9359d23f58d95520899e3c"
+            },
+            {
+                "load": "mongodb-tools",
+                "from": "a332da8588aeea4feb9359d23f58d95520899e3c"
+            },
+            {
+                "load": "coreutils",
+                "from": "a332da8588aeea4feb9359d23f58d95520899e3c"
+            },
+            {
+                "load": "zsh",
+                "from": "a332da8588aeea4feb9359d23f58d95520899e3c"
+            },
+            {
+                "load": "zsh-syntax-highlighting",
+                "from": "a332da8588aeea4feb9359d23f58d95520899e3c"
+            },
+            {
+                "load": "oh-my-zsh",
+                "from": "a332da8588aeea4feb9359d23f58d95520899e3c"
+            },
+            {
+                "load": "spaceship-prompt",
+                "from": "a332da8588aeea4feb9359d23f58d95520899e3c"
+            },
+            {
+                "load": "ripgrep",
+                "from": "a332da8588aeea4feb9359d23f58d95520899e3c"
+            },
+            {
+                "load": "which",
+                "from": "a332da8588aeea4feb9359d23f58d95520899e3c"
+            },
+            {
+                "load": "git",
+                "from": "a332da8588aeea4feb9359d23f58d95520899e3c"
+            },
+            {
+                "load": "colorls",
+                "from": "a332da8588aeea4feb9359d23f58d95520899e3c"
+            },
+            {
+                "load": "tree",
+                "from": "a332da8588aeea4feb9359d23f58d95520899e3c"
+            },
+            {
+                "load": "less",
+                "from": "a332da8588aeea4feb9359d23f58d95520899e3c"
+            },
+            {
+                "load": "nix",
+                "from": "a332da8588aeea4feb9359d23f58d95520899e3c"
+            }
+        ]
     }
-  },
-  "version": "1.0.0",
-  "description": "",
-  "main": "main.js",
-  "scripts": {},
-  "keywords": [],
-  "author": "",
-  "bugs": {},
-  "dependencies": {
-    "big-integer": "1.6.48",
-    "body-parser": "^1.19.0",
-    "cors": "^2.8.5",
-    "crypto-js": "4.0.0",
-    "express": "^4.17.1",
-    "ez-rpc": "file:./ez-rpc/javascript",
-    "good-js": "^1.5.2",
-    "mongodb": "^3.5.4",
-    "nodemon": "^2.0.6",
-    "require-all": "3.0.0",
-    "uuid": "^8.3.1"
-  }
 }

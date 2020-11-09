@@ -4,6 +4,20 @@
 *.nosync*
 database/
 
+#
+# home folder files
+#
+.zsh_history
+.bash_history
+.zcompdump*
+.gitconfig
+.local
+.cache
+.nix-defexpr
+.nix-profile
+.npmrc
+Library/Caches/pip/
+
 # 
 # Linux
 # 
@@ -52,6 +66,9 @@ Temporary Items
 # 
 # Windows
 # 
+
+# visual studio projects
+*.cache
 
 # Windows thumbnail cache files
 Thumbs.db
@@ -570,4 +587,3 @@ dkms.conf
 
 # Executables
 *.out
-
