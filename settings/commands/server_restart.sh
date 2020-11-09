@@ -2,7 +2,7 @@ function find_and_kill {
     application=$1
     results=$(ps aux | grep "$application" | awk '{print $2}' )
     echo $results
-    kill $results
+    kill $results &>/dev/null
 }
 
 # kill previous
