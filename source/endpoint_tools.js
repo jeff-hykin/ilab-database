@@ -222,7 +222,7 @@ module.exports = {
             // increase the index, use BigInt which has no upper bound
             // to save on string space, use the largest base conversion
             const maxAllowedNumberBaseConversion = 36
-            compressionMapping.totalCount = BigInt(compressionMapping.totalCount)+1
+            compressionMapping.totalCount = BigInt(compressionMapping.totalCount)+BigInt(1)
             // need a two way mapping for incoming and outgoing data
             encodedKey = '@'+compressionMapping.totalCount.toString(maxAllowedNumberBaseConversion)
             compressionMapping.getOriginalKeyFor[encodedKey] = originalKey
