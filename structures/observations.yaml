@@ -9,6 +9,8 @@
         "videoId": !string (the _id of the video),
         "observer": !string (the username or model name),
         "isHuman": !true_or_null (true if the observer was a human),
+        "confirmedBySomeone": !true_or_null (true if at least one human agrees with the observation),
+        "rejectedBySomeone": !true_or_null (true if at least one human disagrees with the observation),
         "observation": !dictionary {
             "label": !string_or_null (a simple label for this time),
             "labelConfidence": !float (a value between 0 and 1 of how confident the observer is),
