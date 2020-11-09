@@ -1,33 +1,65 @@
+// import project-specific tools
+const fs = require("fs")
+const mongoDb = require('mongodb')
+const pathToCompressionMapping = "./compressionMapping.json"
+const compressionMapping = require(pathToCompressionMapping)
 // import some basic tools for object manipulation
 const { recursivelyAllAttributesOf, get, set, merge, valueIs, logBlock, checkIf, dynamicSort } = require("good-js")
-// import project-specific tools
-let { app } = require("./server")
-const { response } = require("express")
-let package = require('../package.json')
-let compressionMapping = require("../"+package.parameters.pathToCompressionMapping)
-let fs = require("fs")
-let md5 = require("crypto-js/md5")
-typeof BigInt == 'undefined' && (BigInt = require('big-integer')) // the '&&' is to handle old node versions that don't have BigInt
 
-const DATABASE_KEY = "4a75cfe3cdc1164b67aae6b413c9714280d2f102"
 
-let databaseActions = []
-let databaseActionsAreBeingExecuted = false
-
-// this is basically middleware
-// ... should probably make it official middleware but I'll do that later
-let processRequest = (request) => {
-    // some very very very very very basic form of security
-    if (request.body.key == DATABASE_KEY) {
-        return request.body.args 
-    } else {
-        throw new Error(`\n\nThe database got your request and parsed the json. However, it looked for an AUTH key and didn't find one (or didn't find a correct one). If you should be authorized to access this, then post an issue on https://github.com/jeff-hykin/iilvd_interface\n\nPOSTed data:\n${request.body}`)
-    }
-}
+let databaseStartupCallbacks = []
 module.exports = {
-    smartEndpoints: [],
+    databaseActions: [],
     hiddenKeys: Symbol.for("hiddenKeys"),
-    databaseActions,
+
+    getDb() {
+        if (module.exports.connectToMongoDb.promise) {
+            return module.exports.connectToMongoDb.promise
+        } else {
+            // since the connect function hasn't been called yet
+            // use callbacks instead to wait on it to be called
+            return new Promise((resolve, reject)=>{
+                databaseStartupCallbacks.push(resolve)
+            })
+        }
+    },
+
+    async connectToMongoDb({address, port, username, database, pathToMongoLock, fullUrl}) {
+        let attemptConnection
+        const mongoUrl = `mongodb://${address}:${port}/${username}/${database}`
+        attemptConnection = async (resolve, reject)=>{
+            try {
+                let client = await mongoDb.MongoClient.connect(fullUrl||mongoUrl, {useUnifiedTopology: true})
+                resolve({
+                    client,
+                    db: client.db(database),
+                })
+            } catch (error) {
+                // if its a conntection issue retry
+                if (error instanceof mongoDb.MongoNetworkError) {
+                    console.log(`Unable to connect to mongodb (give it a few seconds), retrying in a few seconds`)
+                    let sleepTime = 6 // seconds
+                    setTimeout(() => {
+                        // check if it is generateing a database
+                        if (!fs.existsSync(pathToMongoLock)) {
+                            console.log(`\n\nIt appears the mongodb database hasn't been setup yet\nthis is probably NOT a problem, I'm going to wait ${sleepTime} seconds and then check on the process again\n\nIf you see this message after several minutes of waiting, something is probably wrong\nit is likely that the volume that was supposed to be mounted\n    --volume FOLDER_WITH_YOUR_DATABASE:/data\nwas somehow not setup correctly (or maybe you never added that volume at all)\nBTW this check uses the /data/db/mongod.lock to confirm if the database exists`)
+                        }
+                        // try again
+                        attemptConnection(resolve, reject)
+                    }, sleepTime * 1000)
+                } else {
+                    reject(error)
+                }
+            }
+        }
+        // connect the variable before it has been waited on
+        // this awkward little thing here is so that functions can wait on the db object even before this function has been called
+        module.exports.connectToMongoDb.promise = new Promise(attemptConnection)
+        let result = await module.exports.connectToMongoDb.promise
+        databaseStartupCallbacks.forEach(each=>each(result))
+        return result
+    },
+        
     // 
     // this function helps ensure that all the actions involving the database
     // are performed in FIFO order AND that each action is 100% finished
@@ -35,91 +67,60 @@ module.exports = {
     // (if they're not done like this, then MongoDB gets mad and throws an error)
     // 
     addScheduledDatabaseAction(action) {
-        // put it on the scheudler 
-        databaseActions.push(action)
-        
-        // if there's already an instance of the executor running
-        // then dont start a new one
-        if (!databaseActionsAreBeingExecuted) {
-            let theActionExecutor = async _=>{
-                // if starting
-                databaseActionsAreBeingExecuted = true
-                // keep looping rather than iterating
-                // because more items are going to be added while
-                // eariler ones are being executed
-                while (true) {
-                    let nextAction = databaseActions.shift()
-                    if (nextAction === undefined) {
-                        break
-                    } else {
-                        await nextAction()
-                    }
-                }
-                // once all tasks are completed, turn the system off
-                databaseActionsAreBeingExecuted = false
-            }
-            // start the theActionExecutor (but don't wait for it to finish)
-            theActionExecutor()
-        }
-    },
-
-    endpointWithReturnValue(name, theFunction) {
-        module.exports.smartEndpoints.push(name)
-        app.post(
-            `/${name}`,
-            // this wraps all the api calls 
-            // to basically 1. parse the arugments for them 
-            // and 2. ensure that the server always sends a response
-            (req, res) => {
-                // whats going on here with aysnc is complicated
-                // basically we need to listen for when theFunction finishes (so we can send a response)
-                // BUT we can't start theFunction here because it has database actions, which need to
-                // happen FIFO order (first one needs to finish before calling a second one).
-                // Code somewhere else (addScheduledDatabaseAction) ensures functions given to it are executed in-order
-                // so we create a wrapper for theFunction and give the wrapped function addScheduledDatabaseAction
-                // that way, inside the wrapper, we know when theFunction finished even though we don't know when it starts
-                module.exports.addScheduledDatabaseAction(async () => {
-                    let args
-                    try {
-                        args = processRequest(req)
-                        let output = theFunction(args)
-                        if (output instanceof Promise) {
-                            output = await output
-                        }
-                        // send the value back to the requester
-                        res.send({ value: output })
-                    } catch (error) {
-                        console.error(error)
-                        // tell the requester there was an error
-                        res.send({ error: `${error.message}:\n${JSON.stringify(error)}\n\nfrom: ${name}\nargs:${JSON.stringify(args, null, 4)}` })
-                    }
-                })
-                 
-            }
-        )
-    },
-
-    endpointNoReturnValue(name, theFunction) {
-        module.exports.smartEndpoints.push(name)
-        app.post(
-            `/${name}`,
-            // this wraps all the api calls 
-            // to basically 1. parse the arugments for them 
-            // and 2. ensure that the server always sends a response
-            (req, res) => {
-                let args
+        return new Promise((resolve, reject)=>{
+            // wrap the action to intercept the output, then put the wrapped func on the scheudler
+            module.exports.databaseActions.push(async ()=>{
                 try {
-                    args = processRequest(req)
-                    // just tell the requester the action was scheduled
-                    res.send({ actionScheduled: true })
-                    // then put it on the scheduler
-                    module.exports.addScheduledDatabaseAction(_=>theFunction(args))
+                    let output = await action()
+                    resolve(output)
+                    return output
                 } catch (error) {
-                    // tell the requester there was an error if the args couldn't be parsed
-                    res.send({ error: `${error.message}:\n${JSON.stringify(error)}\n\nfrom: ${name}\nargs:${args}` })
+                    reject(error)
+                    // intentionally don't fully throw
+                    // because we want the executor to keep running
                 }
+            })
+            
+            // if there's executor processing the scheduled actions
+            // then dont start a new one
+            let self = module.exports.addScheduledDatabaseAction
+            if (!self.databaseActionsAreBeingExecuted) {
+                let theActionExecutor = async () => {
+                    // if starting
+                    self.databaseActionsAreBeingExecuted = true
+                    // keep looping rather than iterating
+                    // because more items are going to be added while
+                    // eariler ones are being executed
+                    while (true) {
+                        let nextAction = databaseActions.shift()
+                        if (nextAction === undefined) {
+                            break
+                        } else {
+                            await nextAction()
+                        }
+                    }
+                    // once all tasks are completed, turn the system off
+                    self.databaseActionsAreBeingExecuted = false
+                }
+                // start the theActionExecutor (but don't wait for it to finish)
+                // (although it wouldn't matter cause this is a promise)
+                theActionExecutor()
             }
-        )
+        })
+
+    },
+    
+    // a very weak form of security
+    // (we don't handle sensitive data, and don't want people to need to a login)
+    // (just a key to keep out the port scanners, rando's, and worms)
+    DATABASE_KEY: "4a75cfe3cdc1164b67aae6b413c9714280d2f102",
+    processRequest(request) {
+        // some very very very very very basic form of security
+        if (request.body.key == module.exports.DATABASE_KEY) {
+            return request.body.args 
+        } else {
+            throw new Error(`\n\nThe database got your request and parsed the json. However, it looked for an AUTH key and didn't find one (or didn't find a correct one). If you should be authorized to access this, then post an issue on https://github.com/jeff-hykin/iilvd_interface\n\nPOSTed data:\n${request.body}`)
+        }
     },
 
     validateKeyList(keyList) {
@@ -229,7 +230,7 @@ module.exports = {
             compressionMapping.getEncodedKeyFor[originalKey] = encodedKey
             if (saveToFile) {
                 // save the new key to disk
-                fs.writeFileSync(package.parameters.pathToCompressionMapping, JSON.stringify(compressionMapping))
+                fs.writeFileSync(pathToCompressionMapping, JSON.stringify(compressionMapping))
             }
             return encodedKey
         }
@@ -457,9 +458,10 @@ module.exports = {
         return mongoFilter
     },
 
-    collectionMethods: {
+    mongoInterface: {
         async get({ keyList, hiddenKeyList, from, shouldntDecode }) {
-            let collection = checkIf({value: from, is: String}) ? global.db.collection(from) : from
+            let { db } = await module.exports.getDb()
+            let collection = checkIf({value: from, is: String}) ? db.collection(from) : from
             if (keyList && keyList.length == 0) {
                 console.error("\n\nget: keyList was empty\n\n")
                 return null
@@ -480,7 +482,8 @@ module.exports = {
             }
         },
         async set({ keyList, hiddenKeyList, from, to }) {
-            let collection = checkIf({value: from, is: String}) ? global.db.collection(from) : from
+            let { db } = await module.exports.getDb()
+            let collection = checkIf({value: from, is: String}) ? db.collection(from) : from
             if (keyList && keyList.length == 0) {
                 console.error("\n\nset: keyList was empty\n\n")
                 return null
@@ -514,7 +517,8 @@ module.exports = {
             }
         },
         async delete({ keyList, hiddenKeyList, from }) {
-            let collection = checkIf({value: from, is: String}) ? global.db.collection(from) : from
+            let { db } = await module.exports.getDb()
+            let collection = checkIf({value: from, is: String}) ? db.collection(from) : from
             if (keyList && keyList.length == 0) {
                 console.error("\n\ndelete: keyList was empty\n\n")
                 return null
@@ -539,16 +543,16 @@ module.exports = {
                 console.error("\n\nmerge: keyList was empty\n\n")
                 return null
             } else {
-                let existingData = await module.exports.collectionMethods.get({ keyList, hiddenKeyList, from, shouldntDecode })
+                let existingData = await module.exports.mongoInterface.get({ keyList, hiddenKeyList, from, shouldntDecode })
                 // TODO: think about the consequences of overwriting array indices
-                return await module.exports.collectionMethods.set({ keyList, hiddenKeyList, from, to: merge(existingData, to), shouldntDecode })
+                return await module.exports.mongoInterface.set({ keyList, hiddenKeyList, from, to: merge(existingData, to), shouldntDecode })
             }
         },
 
         /**
          * Search
          *
-         * @name collectionMethods.all
+         * @name interface.all
          * @param {Object[]} args.where - A list of requirements
          * @param {Object[]} args.sortBy - See below for syntax
          * @param {Object[]} args.sample - how big of a random sample
@@ -595,11 +599,11 @@ module.exports = {
          */
         async all({ where, forEach, maxNumberOfResults, sortBy, sample, from, shouldntDecode, returnObject }={}, { interativeRetrival }={}) {
             // TODO: add a forEach.get: sizeOf, keysOf, id
-
+            let { db } = await module.exports.getDb()
             // 
             // process args
             // 
-            let collection = checkIf({value: from, is: String}) ? global.db.collection(from) : from
+            let collection = checkIf({value: from, is: String}) ? db.collection(from) : from
             where = where||[]
             let { extract, onlyKeep, exclude } = forEach || {}
             
@@ -740,13 +744,14 @@ module.exports = {
         },
 
         /**
-         * @see collectionMethods.all
+         * @see interface.all
          */
         async deleteAll(...args) {
-            let collection = checkIf({value: args[0].from, is: String}) ? global.db.collection(args[0].from) : args[0].from
+            let { db } = await module.exports.getDb()
+            let collection = checkIf({value: args[0].from, is: String}) ? db.collection(args[0].from) : args[0].from
             // extract the ids
             args[0] = {...args[0], forEach: { extractHidden: ["_id"], } }
-            let ids = await module.exports.collectionMethods.all(...args)
+            let ids = await module.exports.mongoInterface.all(...args)
             await collection.deleteMany(
                 {
                     _id: { "$in": ids },
@@ -770,107 +775,5 @@ module.exports = {
         async length(arg) {
             return db.collection(arg.of).countDocuments()
         }
-    },
-
-    // 
-    // generates video entries for all the old video formats
-    // 
-    // this is a temporary function and should be deleted once the conversion is made
-    async convertVersion1ToVersion2(id) {
-        
-        // TODO: improve this by adding a return value filter
-        let oldValue = await mainCollection.findOne({_id: id})
-        try {
-            console.debug(`oldValue._v.basic_info is:`,oldValue._v.basic_info)
-        } catch (e) {
-
-        }
-
-        // skip the id if it doesn't have any data
-        if (
-               !(oldValue instanceof Object)
-            || !(oldValue._v instanceof Object)
-            ||  (Object.keys(oldValue._v).length <= 0)
-        ) {
-            return null
-        } else {
-            oldValue = oldValue._v
-        }
-
-        let newValue = {
-            summary: {
-                id: id,
-                title: null,
-                source: "youtube", // hash this value on the way in, unhash it on way out
-                duration: null,    // might be updated later in this func
-                creator: null,
-            },
-            largeMetadata: {},
-            relatedVideos: {}, // might be updated later in this func
-            videoFormats: [],  // might be updated later in this func
-            processes: {
-                incomplete:{}, // might be updated later in this func
-                completed:{},
-            },
-        }
-        
-        // 
-        // summary.duration
-        // 
-        newValue.duration = get({keyList: ["basic_info", "duration"], from: oldValue})
-
-        // 
-        // relatedVideos
-        // 
-        let relatedVideos = oldValue.related_videos
-        if (relatedVideos instanceof Object) {
-            if (Object.keys(relatedVideos).length > 0) {
-                for (let eachKey in relatedVideos) {
-                    // make sure all of them are dictionaries
-                    newValue.relatedVideos[eachKey] = {}
-                }
-            }
-        }
-
-        // 
-        // videoFormats
-        // 
-        let framesExist = oldValue.frames instanceof Object && Object.keys(oldValue.frames).length > 0
-        let hasFaces = false
-        if (framesExist) {
-            let newFormat = {
-                height: oldValue.basic_info.height,
-                width: oldValue.basic_info.width,
-                fileExtension: "mp4",
-                framerate: null,                    // the current fps values that are saved are unreliable
-                totalNumberOfFrames: null,          // because of failed processes, the total number of frames isn't reliable
-            }            
-            for (const [eachKey, eachValue] of Object.entries(oldValue.frames)) {
-                let faces = eachValue["faces_haarcascade_0-0-2"]
-                if (eachValue["faces_haarcascade_0-0-2"] instanceof Array) {
-                    hasFaces = true
-                    break
-                }
-            }
-            newValue.videoFormats.push(newFormat)
-        }
-        console.debug(`hasFaces is:`,hasFaces)
-
-        // 
-        // processes
-        // 
-        if (hasFaces) {
-            // incomplete because its not known that any of them finished
-            newValue.processes.incomplete["faces-haarcascade-v1"] = true
-        }
-        
-        let { functions } = require("./interfaces/videos")
-        module.exports.collectionMethods.set({
-            keyList:[ id ],
-            from: 'videos',
-            to: newValue
-        })
-        console.log(`video set`)
-        return newValue
     },
 }
