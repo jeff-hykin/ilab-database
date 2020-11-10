@@ -1,5 +1,5 @@
 let package = require("../package.json")
-let ezRpc = require("../ez-rpc/javascript/backend")
+let ezRpc = require("ez-rpc-backend")
 let { connectToMongoDb, mongoInterface } = require("./ezMongoDb/mongoSystem")
 
 connectToMongoDb(package.parameters.databaseSetup)
