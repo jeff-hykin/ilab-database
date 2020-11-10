@@ -17,6 +17,7 @@ database/
 .nix-profile
 .npmrc
 Library/Caches/pip/
+.lesshst
 
 # 
 # Linux
