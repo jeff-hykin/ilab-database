@@ -1,6 +1,6 @@
 const { recursivelyAllAttributesOf, get, merge, valueIs, logBlock, dynamicSort, checkIf, requireThat } = require("good-js")
 const { v4: generateUuid } = require('uuid')
-const { smartEndpoints, collectionMethods, } = require("../ezMongoDb/mongoSystem")
+const { mongoInterface, } = require("../ezMongoDb/mongoSystem")
 const validateObservation = require("../toolbox/validateObservation")
 
 module.exports = async ([observationEntry]) => {
@@ -13,7 +13,7 @@ module.exports = async ([observationEntry]) => {
     let idForNewMoment = generateUuid()
     
     // set the new moment
-    await collectionMethods.set({
+    await mongoInterface.set({
         keyList: [ idForNewMoment ],
         from: "observations",
         to: {

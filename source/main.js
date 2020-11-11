@@ -4,7 +4,7 @@ let { connectToMongoDb, mongoInterface } = require("./ezMongoDb/mongoSystem")
 
 connectToMongoDb(package.parameters.databaseSetup)
 new ezRpc({
-    port: 4321,
+    port: 54321,
     startImmediately: true,
     interface: {
         mongoInterface,

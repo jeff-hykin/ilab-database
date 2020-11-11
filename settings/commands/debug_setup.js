@@ -21,6 +21,6 @@ global.endpoints = require('require-all')({
 module.exports = (async _=>{
     let result = await mongoSetup.connectToMongoDb()
     global.db = result.db
-    global.collectionMethods = endpointTools.collectionMethods
+    global.mongoInterface = endpointTools.mongoInterface
     console.log(`finished setup`)
 })()

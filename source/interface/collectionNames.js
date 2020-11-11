@@ -1,3 +1,5 @@
+const { getDb } = require("../ezMongoDb/mongoSystem")
+
 module.exports = async ()=>{
-    return (await db.listCollections({},{}).toArray()).map(each=>each.name)
+    return (await (await getDb()).listCollections({},{}).toArray()).map(each=>each.name)
 }
