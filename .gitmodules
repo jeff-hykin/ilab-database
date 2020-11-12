@@ -1,6 +1,0 @@
-[submodule "ez-rpc"]
-	path = ez-rpc
-	url = https://github.com/jeff-hykin/ez-rpc
-[submodule "good-js"]
-	path = good-js
-	url = https://github.com/jeff-hykin/good-js
