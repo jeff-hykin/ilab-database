@@ -1,7 +1,7 @@
 {
     "name": "ez_database",
     "parameters": {
-        "port": 3000,
+        "port": 6283,
         "databaseSetup": {
             "pathToMongoLock": "/data/db/mongod.lock",
             "database": "main",

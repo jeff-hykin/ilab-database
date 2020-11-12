@@ -4,7 +4,7 @@ let { connectToMongoDb, mongoInterfaceUnwrapper } = require("./ezMongoDb/mongoSy
 
 connectToMongoDb(package.parameters.databaseSetup)
 new ezRpc({
-    port: 54321,
+    port: package.parameters.port,
     startImmediately: true,
     interface: {
         mongoInterface: mongoInterfaceUnwrapper,
