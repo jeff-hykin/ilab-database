@@ -12,16 +12,18 @@ module.exports = {
     databaseActions: [],
     hiddenKeys: Symbol.for("hiddenKeys"),
 
-    getDb() {
+    async getDb() {
+        let promise
         if (module.exports.connectToMongoDb.promise) {
-            return module.exports.connectToMongoDb.promise
+            promise = module.exports.connectToMongoDb.promise
         } else {
             // since the connect function hasn't been called yet
             // use callbacks instead to wait on it to be called
-            return new Promise((resolve, reject)=>{
+            promise = new Promise((resolve, reject)=>{
                 databaseStartupCallbacks.push(resolve)
             })
         }
+        return (await promise).db
     },
 
     async connectToMongoDb({address, port, username, database, pathToMongoLock, fullUrl}) {
@@ -458,9 +460,20 @@ module.exports = {
         return mongoFilter
     },
 
+    // TODO: this is temporary, should be made programatically
+    mongoInterfaceUnwrapper: {
+        get:       (...args)=>module.exports.mongoInterface.get(...args[0]),
+        set:       (...args)=>module.exports.mongoInterface.set(...args[0]),
+        delete:    (...args)=>module.exports.mongoInterface.delete(...args[0]),
+        merge:     (...args)=>module.exports.mongoInterface.merge(...args[0]),
+        getAll:    (...args)=>module.exports.mongoInterface.getAll(...args[0]),
+        deleteAll: (...args)=>module.exports.mongoInterface.deleteAll(...args[0]),
+        length:    (...args)=>module.exports.mongoInterface.length(...args[0]),
+    },
+
     mongoInterface: {
         async get({ keyList, hiddenKeyList, from, shouldntDecode }) {
-            let { db } = await module.exports.getDb()
+            let db = await module.exports.getDb()
             let collection = checkIf({value: from, is: String}) ? db.collection(from) : from
             if (keyList && keyList.length == 0) {
                 console.error("\n\nget: keyList was empty\n\n")
@@ -482,7 +495,7 @@ module.exports = {
             }
         },
         async set({ keyList, hiddenKeyList, from, to }) {
-            let { db } = await module.exports.getDb()
+            let db = await module.exports.getDb()
             let collection = checkIf({value: from, is: String}) ? db.collection(from) : from
             if (keyList && keyList.length == 0) {
                 console.error("\n\nset: keyList was empty\n\n")
@@ -517,7 +530,7 @@ module.exports = {
             }
         },
         async delete({ keyList, hiddenKeyList, from }) {
-            let { db } = await module.exports.getDb()
+            let db = await module.exports.getDb()
             let collection = checkIf({value: from, is: String}) ? db.collection(from) : from
             if (keyList && keyList.length == 0) {
                 console.error("\n\ndelete: keyList was empty\n\n")
@@ -552,7 +565,7 @@ module.exports = {
         /**
          * Search
          *
-         * @name interface.all
+         * @name interface.getAll
          * @param {Object[]} args.where - A list of requirements
          * @param {Object[]} args.sortBy - See below for syntax
          * @param {Object[]} args.sample - how big of a random sample
@@ -570,8 +583,8 @@ module.exports = {
          * let keyList2 = ["emails", 1, "receiver"]
          * // (A.K.A) item.emails[1].receiver
          * 
-         * all()
-         * all({
+         * getAll()
+         * getAll({
          *   maxNumberOfResults: 10,
          *   where: [
          *     {
@@ -597,9 +610,9 @@ module.exports = {
          *   }
          * })
          */
-        async all({ where, forEach, maxNumberOfResults, sortBy, sample, from, shouldntDecode, returnObject }={}, { interativeRetrival }={}) {
+        async getAll({ where, forEach, maxNumberOfResults, sortBy, sample, from, shouldntDecode, returnObject }={}, { interativeRetrival }={}) {
             // TODO: add a forEach.get: sizeOf, keysOf, id
-            let { db } = await module.exports.getDb()
+            let db = await module.exports.getDb()
             // 
             // process args
             // 
@@ -736,7 +749,7 @@ module.exports = {
                 }
                 results = output
             }
-            console.log(`returning all() results`)
+            console.log(`returning getAll() results`)
             return results
             
             // TODO: should encodedExclusions apply locally
@@ -744,14 +757,14 @@ module.exports = {
         },
 
         /**
-         * @see interface.all
+         * @see interface.getAll
          */
         async deleteAll(...args) {
-            let { db } = await module.exports.getDb()
+            let db = await module.exports.getDb()
             let collection = checkIf({value: args[0].from, is: String}) ? db.collection(args[0].from) : args[0].from
             // extract the ids
             args[0] = {...args[0], forEach: { extractHidden: ["_id"], } }
-            let ids = await module.exports.mongoInterface.all(...args)
+            let ids = await module.exports.mongoInterface.getAll(...args)
             await collection.deleteMany(
                 {
                     _id: { "$in": ids },

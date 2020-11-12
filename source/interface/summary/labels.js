@@ -5,7 +5,7 @@ const { v4: generateUuid } = require('uuid')
 const { mongoInterface, } = require("../../ezMongoDb/mongoSystem.js")
 
 module.exports =  async ({ keyList }) => {
-    let observationIterator = await mongoInterface.all({
+    let observationIterator = await mongoInterface.getAll({
         from: 'observations',
         where: [
             {
@@ -47,7 +47,7 @@ module.exports =  async ({ keyList }) => {
     // show how many videos don't have any segments
     // 
     // TODO: create one to show videos that have unlabelled segments
-    let videosWithoutLabels = await mongoInterface.all({
+    let videosWithoutLabels = await mongoInterface.getAll({
         from:"videos",
         where: [
             {

@@ -1,13 +1,13 @@
 let package = require("../package.json")
 let ezRpc = require("ez-rpc-backend")
-let { connectToMongoDb, mongoInterface } = require("./ezMongoDb/mongoSystem")
+let { connectToMongoDb, mongoInterfaceUnwrapper } = require("./ezMongoDb/mongoSystem")
 
 connectToMongoDb(package.parameters.databaseSetup)
 new ezRpc({
     port: 54321,
     startImmediately: true,
     interface: {
-        mongoInterface,
+        mongoInterface: mongoInterfaceUnwrapper,
         ...require('require-all')({
             dirname:  __dirname + '/interface',
             filter:  /.+\.js$/,

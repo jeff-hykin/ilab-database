@@ -4,7 +4,7 @@ let endpointTools = require("../../source/endpoint_tools.js")
 
 ;;(async _=>{
     await require("./debug_setup")
-    global.observationIterator = mongoInterface.all({
+    global.observationIterator = mongoInterface.getAll({
         from: 'observations',
         where: [
             {
