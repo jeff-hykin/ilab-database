@@ -1,7 +1,7 @@
 // import project-specific tools
 const fs = require("fs")
 const mongoDb = require('mongodb')
-const pathToCompressionMapping = "./compressionMapping.json"
+const pathToCompressionMapping = `${__dirname}/compressionMapping.json`
 const compressionMapping = require(pathToCompressionMapping)
 // import some basic tools for object manipulation
 const { recursivelyAllAttributesOf, get, set, merge, valueIs, logBlock, checkIf, dynamicSort } = require("good-js")
