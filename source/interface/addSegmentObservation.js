@@ -2,9 +2,12 @@ const { recursivelyAllAttributesOf, get, merge, valueIs, logBlock, dynamicSort, 
 const { v4: generateUuid } = require('uuid')
 const { mongoInterface, } = require("../ezMongoDb/mongoSystem")
 const validateObservation = require("../toolbox/validateObservation")
+const extractYoutubeId = require("../toolbox/extractYoutubeId")
 
 module.exports = async ([observationEntry]) => {
-    console.debug(`observationEntry is:`,observationEntry)
+    if (observationEntry instanceof Object) {
+        observationEntry.videoId = extractYoutubeId(observationEntry.videoId)
+    }
     // basic checks on the input
     let result = validateObservation(observationEntry)
     if (result !== true) {
