@@ -18,7 +18,7 @@ module.exports = (observation)=>{
         if (observation.startTime < 0) { return `the observation \`startTime\` is negative... (that shouldn't be possible). startTime:${observation.startTime}` }
         if (observation.endTime   < 0) { return `the observation \`endTime\` is negative... (that shouldn't be possible). endTime:${observation.endTime}` }
         // TODO: remove this once video ids not on youtube are allowed
-        if (observation.videoId.length == 11) { return `\`videoId\` isn't 11 characters long, so I don't think its a valid youtube id. The id was: ${observation.videoId}` }
+        if (observation.videoId.length != 11) { return `\`videoId\` isn't 11 characters long, so I don't think its a valid youtube id. The id was: ${observation.videoId}` }
     // TODO: this will be changed in the future to allow more types
     } else {
         return `\`type\` should be "segment", however instead it was ${observation.type}`
