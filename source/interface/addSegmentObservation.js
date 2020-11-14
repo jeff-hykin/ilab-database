@@ -5,6 +5,7 @@ const validateObservation = require("../toolbox/validateObservation")
 const extractYoutubeId = require("../toolbox/extractYoutubeId")
 
 module.exports = async ([observationEntry]) => {
+    observationEntry.type = "segment"
     if (observationEntry instanceof Object) {
         observationEntry.videoId = extractYoutubeId(observationEntry.videoId)
     }
