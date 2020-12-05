@@ -4,7 +4,7 @@ const mongoDb = require('mongodb')
 const pathToCompressionMapping = `${__dirname}/compressionMapping.json`
 const compressionMapping = require(pathToCompressionMapping)
 // import some basic tools for object manipulation
-const { recursivelyAllAttributesOf, get, set, merge, valueIs, logBlock, checkIf, dynamicSort } = require("good-js")
+const { recursivelyAllAttributesOf, get, set, merge, valueIs, checkIf } = require("good-js")
 
 
 let databaseStartupCallbacks = []
