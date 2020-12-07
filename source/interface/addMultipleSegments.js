@@ -10,7 +10,7 @@ module.exports = async ([newSegements]) => {
     for (let each of newSegements) {
         index++
         each.type = "segment"
-        let result = validateObservation(each)
+        let result = await validateObservation(each)
         if (result !== true) {
             throw Error(`For item # ${index}, `+result)
         }

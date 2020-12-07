@@ -12,7 +12,7 @@ module.exports = async ([observationEntry]) => {
     // 
     // Check data
     // 
-    let result = validateObservation(observationEntry)
+    let result = await validateObservation(observationEntry)
     if (result !== true) {
         throw Error(result)
     }

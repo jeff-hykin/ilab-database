@@ -10,7 +10,7 @@ module.exports = async ([observationEntry]) => {
         observationEntry.videoId = extractYoutubeId(observationEntry.videoId)
     }
     // basic checks on the input
-    let result = validateObservation(observationEntry)
+    let result = await validateObservation(observationEntry)
     if (result !== true) {
         throw Error(result)
     }
