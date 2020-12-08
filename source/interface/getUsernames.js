@@ -1,4 +1,4 @@
-const { mongoInterface } = require("../../ezMongoDb/mongoSystem.js")
+const { mongoInterface } = require("../ezMongoDb/mongoSystem.js")
 
 module.exports =  async () => {
     let observationIterator = await mongoInterface.getAll({

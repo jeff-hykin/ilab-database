@@ -23,7 +23,7 @@ function properNumberCheck(name, value) {
 }
 
 function booleanishCheck(name, value) {
-    if (value === false || value === null || value === undefined || value === true) {
+    if (!(value === false || value === null || value === undefined || value === true)) {
         throw Error(`\`${name}\` exists and isn't boolean, instead it had a type of ${typeof value} with a value of ${JSON.stringify(value)} `)
     }
 }
