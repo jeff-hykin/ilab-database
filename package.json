@@ -28,6 +28,7 @@
         "ez-rpc-backend": "0.0.10",
         "fkill-cli": "^6.0.1",
         "good-js": "^1.5.2",
+        "lodash": "^4.17.20",
         "mongodb": "^3.5.4",
         "nodemon": "^2.0.6",
         "require-all": "3.0.0",

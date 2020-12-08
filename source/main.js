@@ -1,6 +1,8 @@
 let package = require("../package.json")
 let ezRpc = require("ez-rpc-backend")
 let { connectToMongoDb, mongoInterfaceUnwrapper } = require("./ezMongoDb/mongoSystem")
+// make lodash global because I like to live dangerously
+for (const [eachKey, eachValue] of Object.entries(require("lodash"))) { global[eachKey] = eachValue }
 
 connectToMongoDb(package.parameters.databaseSetup)
 new ezRpc({

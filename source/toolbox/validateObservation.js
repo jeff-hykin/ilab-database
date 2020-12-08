@@ -80,12 +80,14 @@ function checkObservation(observationEntry) {
             throw Error(`The observationEntry's \`observation.labelConfidence\` is ${labelConfidence}, which is outside the bounds of 1 and -1.\n\nFor reference, 1 means confident enough to bet $100,000 that the label is correct\n\n-1 means confident enough to bet $100,000 that the label is NOT correct. 0 means total uncertainity`)
         }
     }
+
+    // BACKTRACK: add similarity check
 }
 
 const observerNames = []
 const observerCache = {}
 async function checkObserver(observation) {
-    nonEmptyStringCheck(observation.observer)
+    nonEmptyStringCheck("observer", observation.observer)
     let username = observation.observer
     let pattern = /^[a-zA-Z0-9_\-.@]+$/
     if (!username.match(pattern)) {
