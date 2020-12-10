@@ -1,9 +1,12 @@
 let didYouMean = require("didyoumean")
 
 const getUsernames = require("../interface/getUsernames")
+const getLabelNames = require("../interface/getLabelNames")
 const { mongoInterface, } = require("../ezMongoDb/mongoSystem")
 
 // TODO: attempt auto-detection of duplicate upload values
+
+const namePattern = /^[a-zA-Z0-9_\-.]+$/
 
 function nonEmptyStringCheck(name, value) {
     if (typeof value !== "string") {
@@ -55,7 +58,8 @@ function checkStartAndEndTime(observation) {
     // TODO: check that end time is not longer than the duration of the video
 }
 
-function checkObservation(observationEntry) {
+let labelNames = []
+async function checkObservation(observationEntry) {
     let observation = observationEntry.observation
     if (!(observation instanceof Object)) {
         throw Error(`Each observationEntry should have an \`observation\` object. Instead that value was ${JSON.stringify(observation)}`)
@@ -64,11 +68,30 @@ function checkObservation(observationEntry) {
     //
     // check label
     //
-    let pattern = /^[a-zA-Z0-9\-_\.]+$/
     nonEmptyStringCheck("observation.label", observation.label)
-    if (!observation.label.match(pattern)) {
-        throw Error(`The observationEntry's \`observation.label\` does not meet the requirements of ${pattern}\nIn English that should mean only letters, numbers, underscores, dashs, and periods`)
+    if (!observation.label.match(namePattern)) {
+        throw Error(`The observationEntry's \`observation.label\` does not meet the requirements of ${namePattern}\nIn English that should mean only letters, numbers, underscores, dashs, and periods`)
     }
+
+    // 
+    // name similarity check
+    // 
+    if (labelNames.length == 0) {
+        labelNames = await getLabelNames()
+    }
+    if (!labelNames.includes(observation.label)) {
+        let potentialMisname = didYouMean(observation.label, labelNames)
+        if (potentialMisname instanceof Array) {
+            potentialMisname = potentialMisname[0]
+        }
+        if (typeof potentialMisname == "string" && potentialMisname.length > 0) {
+            // if they are similar, but not the same
+            if (potentialMisname !== observation.label) {
+                throw Error(`The observation's \`observation.label\` is similar to the existing observation.label ${potentialMisname}. To avoid accidents, if you created that name, please use it instead of ${observation.label}. If you did not create that name, please choose a new name that is significantly different from it`)
+            }
+        }
+    }
+    labelNames.push(observation.label)
 
     //
     // check labelConfidence
@@ -84,14 +107,13 @@ function checkObservation(observationEntry) {
     // BACKTRACK: add similarity check
 }
 
-const observerNames = []
-const observerCache = {}
+let observerNames = []
+let observerCache = {}
 async function checkObserver(observation) {
     nonEmptyStringCheck("observer", observation.observer)
     let username = observation.observer
-    let pattern = /^[a-zA-Z0-9_\-.@]+$/
-    if (!username.match(pattern)) {
-        throw Error(`the observation \`observer\` does not meet the requirements of ${pattern}\nIn English that should mean only letters, numbers, underscores, dashs, periods and at-symbols`)
+    if (!username.match(namePattern)) {
+        throw Error(`the observation \`observer\` does not meet the requirements of ${namePattern}\nIn English that should mean only letters, numbers, underscores, dashs, and periods`)
     }
     
     // 
@@ -108,17 +130,18 @@ async function checkObserver(observation) {
         if (typeof potentialMisname == "string" && potentialMisname.length > 0) {
             // if they are similar, but not the same
             if (potentialMisname !== username) {
-                throw Error(`the observation's \`observer\` is similar to the existing username ${potentialMisname} to avoid accidents. If you created that name, please use it instead of ${username}. If you did not create that name, please choose a new name that is significantly different from it`)
+                throw Error(`the observation's \`observer\` is similar to the existing username ${potentialMisname}. To avoid accidents, if you created that name, please use it instead of ${username}. If you did not create that name, please choose a new name that is significantly different from it`)
             }
         }
     }
-    observerNames.add(username)
+    observerNames.push(username)
     
     // 
     // make sure the observer is either human or machine, but not both
     // 
-    if (observerCache[username] !== undefined) {
-        let existing = new Set(await mongoInterface.getAll({
+    // if not yet cached
+    if (observerCache[username] === undefined) {
+        var existing = new Set(await mongoInterface.getAll({
             from: "observations",
             where: [
                 {
@@ -130,36 +153,51 @@ async function checkObserver(observation) {
                 extract: ["isHuman"],
             }
         }))
-        let hasTrue  = true  in existing
-        let hasFalse = false in existing
-        let hasNull  = null  in existing
-        let copy = new Set(existing); copy.delete(true); copy.delete(false); copy.delete(null)
-        if (copy.size > 0 || (hasTrue && (hasFalse||hasNull))) {
-            console.error(`#\n#\n# Corrupt isHuman data for user ${username}, isHuman values: ${existing}\n#\n#\n`)
-
-            // TODO: potentially make this throw an error
+        var hasTrue  = existing.has(true)
+        var hasFalse = existing.has(false)
+        var hasNull  = existing.has(null)
+        var other = new Set(existing); other.delete(true); other.delete(false); other.delete(null)
+        
+        // if never seen
+        if (existing.size === 0) {
             observerCache[username] = null
+        // if listed as true
+        } else if (hasTrue) {
+            observerCache[username] = true
+        // otherwise assume false (and standardize the values to be false)
         } else {
-            if (existing.size === 0) {
-                observerCache[username] = null
-            } else if (hasTrue) {
-                observerCache[username] = true
-            } else {
-                observerCache[username] = false
-            }
+            observerCache[username] = false
+        }
+        
+        // 
+        // corruption check
+        // 
+        if (other.size > 0 || (hasTrue && (hasFalse||hasNull))) {
+            console.error(`#\n#\n# Corrupt isHuman data for user ${username}, isHuman values: ${existing}\n#\n#\n`)
+            // TODO: potentially make this throw an error
+            // treat name as if it hasn't been seen before
+            observerCache[username] = null
         }
     }
     
     // this should mean this is the first time the user has made an observation
     // (or some data in the data in the database is corrupt)
-    if (observerCache[username] === null) {
+    if (observerCache[username] == null) {
         // use the current value
         observerCache[username] = observation.isHuman === true
     } else {
         let existingOneIsHuman = observerCache[username] === true
         let newOneIsHuman = observation.isHuman === true
         if (existingOneIsHuman !== newOneIsHuman) {
-            throw Error(`the \`observer\` ${username} is listed on this observation with isHuman: ${JSON.stringify(observation.isHuman)}, however in the database that same username is being used where the isHuman is disagrees. Its possible the previously uploaded data is wrong, the being-uploaded data is wrong, or someone else was using your username before you. Please use the search-by-username to figure what happened and correct it.`)
+            throw Error(`
+            existing: ${[...existing]}
+            hasTrue: ${hasTrue}
+            hasFalse: ${hasFalse}
+            hasNull: ${hasNull}
+            other: ${other}
+            the \`observer\` ${username} is listed on this observation with isHuman: ${JSON.stringify(observation.isHuman)}, however in the database that same username is being used where the isHuman is disagrees. Its possible the previously uploaded data is wrong, the being-uploaded data is wrong, or someone else was using your username before you. Please use the search-by-username to figure what happened and correct it.
+            observerCache[username]:${JSON.stringify(observerCache[username])}
+            observation.isHuman ${JSON.stringify(observation.isHuman)}`)
         }
     }
     
@@ -189,7 +227,7 @@ module.exports = async (observationEntry) => {
         booleanishCheck("confirmedBySomeone", observationEntry.confirmedBySomeone)
         booleanishCheck("rejectedBySomeone", observationEntry.rejectedBySomeone)
         await checkObserver(observationEntry)
-        checkObservation(observationEntry)
+        await checkObservation(observationEntry)
     
         if (observationEntry.type == "segment") {
             checkStartAndEndTime(observationEntry)
