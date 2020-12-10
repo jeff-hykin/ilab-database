@@ -3,6 +3,7 @@ const fs = require("fs")
 const mongoDb = require('mongodb')
 const pathToCompressionMapping = `${__dirname}/compressionMapping.json`
 const compressionMapping = require(pathToCompressionMapping)
+const BigInt = require("big-integer")
 // import some basic tools for object manipulation
 const { recursivelyAllAttributesOf, get, set, merge, valueIs, checkIf } = require("good-js")
 
