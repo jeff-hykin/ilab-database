@@ -58,8 +58,8 @@ function checkStartAndEndTime(observation) {
     // TODO: check that end time is not longer than the duration of the video
 }
 
-let labelNames = []
 async function checkObservation(observationEntry) {
+    let labelNames = []
     let observation = observationEntry.observation
     if (!(observation instanceof Object)) {
         throw Error(`Each observationEntry should have an \`observation\` object. Instead that value was ${JSON.stringify(observation)}`)
@@ -70,7 +70,7 @@ async function checkObservation(observationEntry) {
     //
     nonEmptyStringCheck("observation.label", observation.label)
     if (!observation.label.match(namePattern)) {
-        throw Error(`The observationEntry's \`observation.label\` does not meet the requirements of ${namePattern}\nIn English that should mean only letters, numbers, underscores, dashs, and periods`)
+        throw Error(`The observationEntry's \`observation.label\` (${JSON.stringify(observation.label)}) does not meet the requirements of ${namePattern}\nIn English that should mean only letters, numbers, underscores, dashs, and periods`)
     }
 
     // 
@@ -103,17 +103,15 @@ async function checkObservation(observationEntry) {
             throw Error(`The observationEntry's \`observation.labelConfidence\` is ${labelConfidence}, which is outside the bounds of 1 and -1.\n\nFor reference, 1 means confident enough to bet $100,000 that the label is correct\n\n-1 means confident enough to bet $100,000 that the label is NOT correct. 0 means total uncertainity`)
         }
     }
-
-    // BACKTRACK: add similarity check
 }
 
-let observerNames = []
-let observerCache = {}
 async function checkObserver(observation) {
+    let observerNames = []
+    let observerCache = {}
     nonEmptyStringCheck("observer", observation.observer)
     let username = observation.observer
     if (!username.match(namePattern)) {
-        throw Error(`the observation \`observer\` does not meet the requirements of ${namePattern}\nIn English that should mean only letters, numbers, underscores, dashs, and periods`)
+        throw Error(`the observation \`observer\` (${JSON.stringify(observation.observer)}) does not meet the requirements of ${namePattern}\nIn English that should mean only letters, numbers, underscores, dashs, and periods`)
     }
     
     // 
