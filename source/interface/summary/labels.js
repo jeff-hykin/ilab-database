@@ -59,17 +59,30 @@ module.exports =  async ({ keyList }) => {
             extractHidden: [ "_id" ]
         },
     })
-    results["(No Segments)"] = {
+    results["(no segments)"] = {
         color: "gray",
         videos: Object.fromEntries([...videosWithoutLabels].map(each=>[each, 1])),
         videoCount: videosWithoutLabels.length,
         segmentCount: 0,
     }
-    results["Neutral"] || (results["Neutral"]={})
-    results["Neutral"].color = "darkgray"
+
+    // 
+    // hard coded colors (probably should remove these)
+    // 
+    results["neutral"] || (results["neutral"]={})
+    results["neutral"].color = "darkgray"
     
-    results["Uncertain"] || (results["Uncertain"]={})
-    results["Uncertain"].color = "gray"
+    results["surprise"] || (results["surprise"]={})
+    results["surprise"].color = "#fec355"
+
+    results["happy"] || (results["happy"]={})
+    results["happy"].color = "#26c6da"
+    
+    results["angry"] || (results["angry"]={})
+    results["angry"].color = "#e57373"
+    
+    results["uncertain"] || (results["uncertain"]={})
+    results["uncertain"].color = "gray"
 
     // sort results by largest segmentCount
     results = Object.fromEntries(Object.entries(results).sort(dynamicSort([1, "segmentCount"], true)))
