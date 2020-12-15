@@ -187,15 +187,7 @@ async function checkObserver(observation) {
         let existingOneIsHuman = observerCache[username] === true
         let newOneIsHuman = observation.isHuman === true
         if (existingOneIsHuman !== newOneIsHuman) {
-            throw Error(`
-            existing: ${[...existing]}
-            hasTrue: ${hasTrue}
-            hasFalse: ${hasFalse}
-            hasNull: ${hasNull}
-            other: ${other}
-            the \`observer\` ${username} is listed on this observation with isHuman: ${JSON.stringify(observation.isHuman)}, however in the database that same username is being used where the isHuman is disagrees. Its possible the previously uploaded data is wrong, the being-uploaded data is wrong, or someone else was using your username before you. Please use the search-by-username to figure what happened and correct it.
-            observerCache[username]:${JSON.stringify(observerCache[username])}
-            observation.isHuman ${JSON.stringify(observation.isHuman)}`)
+            throw Error(`the \`observer\` ${username} is listed on this observation with isHuman: ${JSON.stringify(observation.isHuman)}, however other observations have the same username but a different \`isHuman\` value. Please use a different username for computer-labels vs human-labels. It is possible the previously uploaded data is wrong, the being-uploaded data is wrong, or someone else was using your username before you. Please use the search-by-username to figure what happened and correct it.`)
         }
     }
     
