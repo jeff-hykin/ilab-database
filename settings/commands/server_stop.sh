@@ -1,2 +1,2 @@
-kill "$(cat .nosync.db.pid)"
-kill "$(cat .nosync.main.js.pid)"
+kill "$(cat "./settings/processes.nosync/express.pid")"
+kill "$(cat "./settings/processes.nosync/database.pid")"
