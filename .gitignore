@@ -5,6 +5,7 @@
 *.nosync*
 database/**
 !/database/**/.gitkeep
+compressionMapping.json
 
 
 # 
