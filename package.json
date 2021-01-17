@@ -8,7 +8,8 @@
             "username": "admin",
             "port": 27017,
             "databasePath": "./database",
-            "address": "localhost"
+            "address": "localhost",
+            "backupFolder": "./backups.nosync"
         }
     },
     "version": "1.0.0",

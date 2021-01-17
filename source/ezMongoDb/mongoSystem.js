@@ -1,12 +1,18 @@
 // import project-specific tools
 const fs = require("fs")
+const path = require("path")
+const { spawn } = require('child_process')
 const mongoDb = require('mongodb')
-const pathToCompressionMapping = `${__dirname}/compressionMapping.json`
-const compressionMapping = require(pathToCompressionMapping)
+const _ = require("lodash")
 const BigInt = require("big-integer")
 // import some basic tools for object manipulation
 const { recursivelyAllAttributesOf, get, set, merge, valueIs, checkIf } = require("good-js")
-
+const pathToCompressionMapping = `${__dirname}/compressionMapping.json`
+// create compression mapping if needed
+if (!fs.existsSync(pathToCompressionMapping)) {
+    fs.writeFileSync(pathToCompressionMapping, "{}")
+}
+const compressionMapping = require(pathToCompressionMapping)
 
 let databaseStartupCallbacks = []
 module.exports = {
@@ -27,7 +33,8 @@ module.exports = {
         return (await promise).db
     },
 
-    async connectToMongoDb({address, port, username, database, pathToMongoLock, fullUrl}) {
+    async connectToMongoDb({address, port, username, database, pathToMongoLock, fullUrl, backupFolder }) {
+        module.exports.backupFolder = backupFolder
         let attemptConnection
         const mongoUrl = `mongodb://${address}:${port}/${username}/${database}`
         attemptConnection = async (resolve, reject)=>{
@@ -470,6 +477,80 @@ module.exports = {
         getAll:    (...args)=>module.exports.mongoInterface.getAll(...args[0]),
         deleteAll: (...args)=>module.exports.mongoInterface.deleteAll(...args[0]),
         length:    (...args)=>module.exports.mongoInterface.length(...args[0]),
+    },
+    
+    timeMachine: {
+        createBackup(backupName) {
+            // ensure backup name exists
+            if (typeof backupName !== 'string') {
+                backupName = `${(new Date()).toUTCString()}.backup`
+            }
+            // make sure the folder exists
+            try {
+                fs.mkdirSync(module.exports.backupFolder, {recursive: true})
+            } catch (error) {}
+            
+            console.log(`calling command to create backup`)
+            const pathToBackup = path.join(module.exports.backupFolder, backupName)
+            let backupProcess = spawn("mongodump", ["-o", pathToBackup])
+            backupProcess.stdout.on('data', console.log)
+            backupProcess.stderr.on('data', console.error)
+            return new Promise((resolve, reject)=>{
+                backupProcess.on('close', (exitCode)=>{
+                    if (exitCode == 0) {
+                        if (fs.existsSync(pathToBackup)) {
+                            // copy over the compression mapping
+                            fs.writeFileSync(path.join(pathToBackup, "compressionMapping.json"), fs.readFileSync(pathToCompressionMapping).toString())
+                        }
+                        console.log(`backup seems to have been created successfully`)
+                        resolve()
+                    } else {
+                        console.error(`there was an issue creating the backup`)
+                        reject()
+                    }
+                })
+            })
+        },
+        listBackups() {
+            // make sure the folder exists
+            try {
+                fs.mkdirSync(module.exports.backupFolder, {recursive: true})
+            } catch (error) {}
+            // get all the backups
+            return fs.readdirSync(module.exports.backupFolder)
+        },
+        restoreBackup(backupName) {
+            let backups = module.exports.timeMachine.listBackups()
+            let customBackup = typeof backupName === 'string' && fs.existsSync(backupName)
+            if (!customBackup && backups.length === 0) {
+                console.error(`Backup ${backupName} doesn't seem to exist\nAnd there seem to be no backups inside of the backup folder "${module.exports.backupFolder}"`)
+                return
+            } else if (typeof backupName !== 'string') {
+                // sort by date, choose most recent
+                backupName = _.maxBy(backups, each => (new Date(each.replace(/\.backup$/,""))).getTime())
+            }
+            // extract the compression mapping
+            const pathToBackup = path.join(module.exports.backupFolder, backupName)
+            let oldCompressionMappingPath = path.join(pathToBackup, "compressionMapping.json")
+            if (fs.existsSync(oldCompressionMappingPath)) {
+                fs.writeFileSync(pathToCompressionMapping, fs.readFileSync(oldCompressionMappingPath).toString())
+            }
+            console.log("running the restore command")
+            let backupProcess = spawn("mongorestore", ["--dir", `${pathToBackup}`])
+            backupProcess.stdout.on('data', console.log)
+            backupProcess.stderr.on('data', console.error)
+            return new Promise((resolve, reject)=>{
+                backupProcess.on('close', (exitCode)=>{
+                    if (exitCode == 0) {
+                        console.log("restore seems to have been successful")
+                        resolve()
+                    } else {
+                        console.error("something went wrong with the restoration process")
+                        reject()
+                    }
+                })
+            })
+        }
     },
 
     mongoInterface: {
