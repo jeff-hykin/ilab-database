@@ -30,3 +30,14 @@ Object.defineProperty(Object.prototype, "wait", {
         return dataWrapper
     }
 })
+
+
+// global.observationIterator = mongoInterface.getAll({
+//     from: 'observations',
+//     where: [
+//         {
+//             valueOf: ["type"],
+//             is: "segment",
+//         }
+//     ]
+// }, {interativeRetrival: true})
