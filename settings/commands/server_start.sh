@@ -6,5 +6,6 @@ npm install
 
 # keep the express server running and tell it to watch for updates
 mkdir -p "./settings/processes.nosync"
-npx nodemon ./source/main.js &
+mkdir -p "./settings/logs.nosync"
+npx nodemon ./source/main.js &> "./settings/logs.nosync/server.log" &
 echo "$!" > "./settings/processes.nosync/express.pid"
