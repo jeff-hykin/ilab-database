@@ -10,6 +10,12 @@
             "databasePath": "./database",
             "address": "localhost",
             "backupFolder": "./backups.nosync"
+        },
+        "paths": {
+            "expressMain": "./source/main.js",
+            "serverLog": "./settings/logs/server.nosync.log",
+            "mongoPid": "./settings/processes/mongo.nosync.pid",
+            "expressPid": "./settings/processes/express.nosync.pid"
         }
     },
     "version": "1.0.0",

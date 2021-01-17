@@ -3,7 +3,9 @@
 # 
 \.idea
 *.nosync*
-database/
+database/**
+!/database/**/.gitkeep
+
 
 # 
 # Linux
