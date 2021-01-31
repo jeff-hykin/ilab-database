@@ -79,7 +79,7 @@ else
     # 
     source "$zsh_auto_suggest__path/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
     
-    which python &>/dev/null && SPACESHIP_VENV_SYMBOL="🐍$(python -V | sed -E 's/Python//g' )"
+    which python &>/dev/null && SPACESHIP_VENV_SYMBOL="🐍$(python -V 2>&1 | sed -E 's/Python//g' )"
     SPACESHIP_VENV_PREFIX=""
     SPACESHIP_VENV_GENERIC_NAMES="."
     SPACESHIP_VENV_COLOR="green"
