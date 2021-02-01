@@ -11,13 +11,13 @@ const paths = package.parameters.paths
 try { fs.unlinkSync("/tmp/mongodb-27017.sock") } catch (error) {}
 try { fs.unlinkSync(paths.serverLog) } catch (error) {}
 
-
 // 
 // database process
 // 
 const startDatabaseProcess = ({enableRepair}) => {
     const args = ["--bind_ip", "127.0.0.1", "--dbpath", package.parameters.databaseSetup.databasePath]
     enableRepair && (args = ["--repair", ...args])
+    console.log(`starting database serivce`)
     const process = spawn("mongod", args)
     process.stdout.on('data', (data)=>fs.appendFile(paths.serverLog, `${data}`, {}, ()=>0))
     process.stderr.on('data', (data)=>fs.appendFile(paths.serverLog, `ERR: ${data}`, {}, ()=>0))
@@ -33,12 +33,15 @@ startDatabaseProcess({}).then( (exitCode) => {
     if (exitCode != 0) {
         startDatabaseProcess({enableRepair: true})
     }
+}).catch(e=>{
+    console.debug(`e is:`,e)
 })
 
 // install/update everything
 spawnSync("npm", ["install"], {stdio:'inherit'})
 
 // start the express server
+console.log(`starting express serivce`)
 let process = spawn("npx", ["nodemon", paths.expressMain])
 process.stdout.on('data', (data)=>fs.appendFile(paths.serverLog, `${data}`, {}, ()=>0))
 process.stderr.on('data', (data)=>fs.appendFile(paths.serverLog, `ERR: ${data}`, {}, ()=>0))
