@@ -1,7 +1,8 @@
+#!/usr/bin/env bash 
+
 function find_process {
     application=$1
-    results=$(ps aux | grep "$application" | awk '{print $2}' )
-    echo $results
+    echo "$(ps aux | grep "$application")"
 }
 
 # kill previous
