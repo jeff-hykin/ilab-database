@@ -2,7 +2,7 @@
 
 function find_process {
     application=$1
-    echo "$(ps aux | grep "$application")"
+    echo "$(ps aux | grep "$application" | grep -v " grep ")"
 }
 
 # kill previous
