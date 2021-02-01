@@ -15,7 +15,7 @@ try { fs.unlinkSync(paths.serverLog) } catch (error) {}
 // database process
 // 
 const startDatabaseProcess = ({enableRepair}) => {
-    const args = ["--bind_ip", "127.0.0.1", "--dbpath", package.parameters.databaseSetup.databasePath]
+    let args = ["--bind_ip", "127.0.0.1", "--dbpath", package.parameters.databaseSetup.databasePath]
     enableRepair && (args = ["--repair", ...args])
     console.log(`starting database serivce`)
     const process = spawn("mongod", args)
