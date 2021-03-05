@@ -4,7 +4,7 @@ const { mongoInterface, } = require("../ezMongoDb/mongoSystem")
 const validateObservation = require("./validateObservation")
 const extractYoutubeId = require("../toolbox/extractYoutubeId")
 const crypto = require('crypto')
-const stringify = require('es6-json-stable-stringify')
+const stringify = require('fast-json-stable-stringify')
 
 let hashFunc = (data)=>crypto.createHash('sha1').update(stringify(data)).digest('base64')
 
