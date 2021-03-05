@@ -20,7 +20,7 @@ module.exports = async ([observationEntry]) => {
     if (result !== true) {
         throw Error(result)
     }
-    let idForNewMoment = hashFunc(observationEntry)
+    let idForNewMoment = hashFunc({...observationEntry, uploadTime: null})
 
     // set the new moment
     await mongoInterface.set({
