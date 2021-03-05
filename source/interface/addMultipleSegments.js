@@ -2,7 +2,7 @@ const { recursivelyAllAttributesOf, get, merge, valueIs, logBlock, dynamicSort, 
 const { v4: generateUuid } = require('uuid')
 const { mongoInterface, } = require("../ezMongoDb/mongoSystem")
 const addSegmentObservation = require("./addSegmentObservation")
-const validateObservation = require("../toolbox/validateObservation")
+const validateObservation = require("./validateObservation")
 
 module.exports = async ([newSegements]) => {
     // first check all the values before adding any of them
@@ -10,7 +10,7 @@ module.exports = async ([newSegements]) => {
     for (let each of newSegements) {
         index++
         each.type = "segment"
-        let result = await validateObservation(each)
+        let result = await validateObservation([each])
         if (result !== true) {
             throw Error(`For item # ${index}, `+result)
         }

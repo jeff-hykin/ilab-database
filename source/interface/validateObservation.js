@@ -200,7 +200,7 @@ async function checkObserver(observation) {
  * @return {Boolean|String} true if valid, string-error if invalid
  *
  */
-module.exports = async (observationEntry) => {
+module.exports = async ([observationEntry]) => {
     // 
     // basic check
     // 
