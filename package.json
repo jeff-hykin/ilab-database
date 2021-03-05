@@ -31,6 +31,7 @@
         "cors": "^2.8.5",
         "crypto-js": "4.0.0",
         "didyoumean": "^1.2.1",
+        "es6-json-stable-stringify": "^2.0.2",
         "express": "^4.17.1",
         "ez-rpc-backend": "0.0.10",
         "fkill-cli": "^6.0.1",

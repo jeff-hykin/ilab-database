@@ -4,8 +4,9 @@ const { mongoInterface, } = require("../ezMongoDb/mongoSystem")
 const validateObservation = require("./validateObservation")
 const extractYoutubeId = require("../toolbox/extractYoutubeId")
 const crypto = require('crypto')
+const stringify = require('es6-json-stable-stringify')
 
-let hashFunc = (data)=>crypto.createHash('sha1').update(JSON.stringify(data)).digest('base64')
+let hashFunc = (data)=>crypto.createHash('sha1').update(stringify(data)).digest('base64')
 
 module.exports = async ([observationEntry]) => {
     // perform id extraction before check
