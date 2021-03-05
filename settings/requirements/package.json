@@ -1,0 +1,46 @@
+{
+    "name": "ez_database",
+    "parameters": {
+        "port": 6283,
+        "databaseSetup": {
+            "pathToMongoLock": "/data/db/mongod.lock",
+            "database": "main",
+            "username": "admin",
+            "port": 27017,
+            "databasePath": "./database",
+            "address": "localhost",
+            "backupFolder": "./backups.nosync"
+        },
+        "paths": {
+            "expressMain": "./source/main.js",
+            "serverLog": "./settings/logs/server.nosync.log",
+            "mongoPid": "./settings/processes/mongo.nosync.pid",
+            "expressPid": "./settings/processes/express.nosync.pid"
+        }
+    },
+    "version": "1.0.0",
+    "description": "",
+    "main": "main.js",
+    "scripts": {},
+    "keywords": [],
+    "author": "",
+    "bugs": {},
+    "dependencies": {
+        "big-integer": "1.6.48",
+        "body-parser": "^1.19.0",
+        "cors": "^2.8.5",
+        "crypto-js": "4.0.0",
+        "didyoumean": "^1.2.1",
+        "express": "^4.17.1",
+        "ez-rpc-backend": "0.0.10",
+        "fast-json-stable-stringify": "^2.1.0",
+        "fkill-cli": "^6.0.1",
+        "good-js": "^1.5.2",
+        "lodash": "^4.17.20",
+        "mongodb": "^3.5.4",
+        "nodemon": "^2.0.6",
+        "require-all": "3.0.0",
+        "uuid": "^8.3.1",
+        "ytdl-core": "^4.1.3"
+    }
+}
