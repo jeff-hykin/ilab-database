@@ -15,27 +15,41 @@ if (!fs.existsSync(pathToCompressionMapping)) {
 const compressionMapping = require(pathToCompressionMapping)
 
 let databaseStartupCallbacks = []
+let attemptConnection = ()=>0
 module.exports = {
     databaseActions: [],
     hiddenKeys: Symbol.for("hiddenKeys"),
 
     async getDb() {
-        let promise
-        if (module.exports.connectToMongoDb.promise) {
-            promise = module.exports.connectToMongoDb.promise
-        } else {
-            // since the connect function hasn't been called yet
-            // use callbacks instead to wait on it to be called
-            promise = new Promise((resolve, reject)=>{
-                databaseStartupCallbacks.push(resolve)
-            })
+        while (true) {
+            let promise
+            if (module.exports.connectToMongoDb.promise) {
+                promise = module.exports.connectToMongoDb.promise
+            } else {
+                // since the connect function hasn't been called yet
+                // use callbacks instead to wait on it to be called
+                promise = new Promise((resolve, reject)=>{
+                    databaseStartupCallbacks.push(resolve)
+                })
+            }
+            let db
+            try {
+                db = (await promise).db
+            } catch (error) {
+                console.debug(`getDb() error is:`,error)
+                console.log(`retrying in a few seconds`)
+                await new Promise((resolve, reject)=>setTimeout(resolve, 5000))
+                module.exports.connectToMongoDb.promise = new Promise(attemptConnection)
+                continue
+            }
+            break
         }
-        return (await promise).db
+
+        return db
     },
 
     async connectToMongoDb({ address, port, username, database, pathToMongoLock, fullUrl, backupFolder }) {
         module.exports.backupFolder = backupFolder
-        let attemptConnection
         const mongoUrl = `mongodb://${address}:${port}/${username}/${database}`
         attemptConnection = async (resolve, reject)=>{
             try {
