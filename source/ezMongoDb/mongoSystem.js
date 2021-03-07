@@ -21,6 +21,7 @@ module.exports = {
     hiddenKeys: Symbol.for("hiddenKeys"),
 
     async getDb() {
+        let db
         while (true) {
             let promise
             if (module.exports.connectToMongoDb.promise) {
@@ -32,7 +33,7 @@ module.exports = {
                     databaseStartupCallbacks.push(resolve)
                 })
             }
-            let db
+            
             try {
                 db = (await promise).db
             } catch (error) {
