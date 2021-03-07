@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+kill "$(cat "./settings/processes/mongo.nosync.pid")"

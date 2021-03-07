@@ -11,41 +11,55 @@ const paths = package.parameters.paths
 try { fs.unlinkSync("/tmp/mongodb-27017.sock") } catch (error) {}
 try { fs.unlinkSync(paths.serverLog) } catch (error) {}
 
-// 
-// database process
-// 
-const startDatabaseProcess = ({enableRepair}) => {
+// database process function
+const startDatabaseProcess = async ({enableRepair}) => {
     let args = ["--bind_ip", "127.0.0.1", "--dbpath", package.parameters.databaseSetup.databasePath]
     enableRepair && (args = ["--repair", ...args])
     console.log(`starting database serivce`)
     const process = spawn("mongod", args)
     process.stdout.on('data', (data)=>fs.appendFile(paths.serverLog, `${data}`, {}, ()=>0))
     process.stderr.on('data', (data)=>fs.appendFile(paths.serverLog, `ERR: ${data}`, {}, ()=>0))
+    console.log(`saving mongo PID: ${process.pid}`)
     fs.writeFileSync(paths.mongoPid, `${process.pid}`)
     return new Promise((resolve, reject)=>{
-        process.on('close', (exitCode)=>resolve(exitCode))
+        process.on('exit', (exitCode)=>resolve(exitCode))
+        process.on('disconnect', (exitCode)=>resolve(exitCode))
     })
 }
 
-// save for future reference
+// 
+// start up database process
+// 
 startDatabaseProcess({}).then( (exitCode) => {
     // if the server failed, restart and try to repair it
     if (exitCode != 0) {
-        startDatabaseProcess({enableRepair: true})
+        console.log(`database normal start failed, retrying with repair`)
+        startDatabaseProcess({enableRepair: true}).then(each=>{
+            if (exitCode != 0) {
+                console.error(`database REPAIR start failed`)
+            }
+        })
+    } else {
+        console.log(`Mongo exited without error for some reason`)
     }
-}).catch(e=>{
-    console.debug(`e is:`,e)
+}).catch(error=>{
+    // this should never happen unless the javascript code of startDatabaseProcess is wrong
+    console.debug(`error is:`,error)
 })
 
+// 
 // install/update everything
+// 
 spawnSync("npm", ["install"], {stdio:'inherit'})
 
-// start the express server
+// 
+// start the express server process
+// 
 console.log(`starting express serivce`)
 let process = spawn("npx", ["nodemon", paths.expressMain])
 process.stdout.on('data', (data)=>fs.appendFile(paths.serverLog, `${data}`, {}, ()=>0))
 process.stderr.on('data', (data)=>fs.appendFile(paths.serverLog, `ERR: ${data}`, {}, ()=>0))
-process.on('close', (exitCode)=>exitCode)
+process.on('exit', (exitCode)=>exitCode)
 fs.writeFileSync(paths.expressPid, `${process.pid}`)
 
 

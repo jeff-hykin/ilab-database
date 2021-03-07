@@ -5,8 +5,9 @@ function find_process {
     echo "$(ps aux | grep "$application" | grep -v " grep ")"
 }
 
-# kill previous
-find_process "npx nodemon main.js"
+echo "node:"
+find_process "npx nodemon"
 find_process "node main.js"
+echo "mongo:"
 find_process "mongod --bind_ip 127.0.0.1"
 find_process "mongod --repair --bind_ip 127.0.0.1"

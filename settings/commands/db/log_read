@@ -1,0 +1,4 @@
+#!/usr/bin/env bash 
+
+LOG_FILE_PATH="$(node -e 'console.log(require("./package.json").parameters.paths.serverLog)')"
+cat "$LOG_FILE_PATH" | less
