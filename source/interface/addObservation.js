@@ -9,6 +9,16 @@ const stringify = require('fast-json-stable-stringify')
 let hashFunc = (data)=>crypto.createHash('sha1').update(stringify(data)).digest('base64')
 
 module.exports = async ([observationEntry]) => {
+    // 
+    // force standard name format
+    // 
+    try {
+        observationEntry.observation.label = observationEntry.observation.label.toLowerCase()
+        observationEntry.observation.label = observationEntry.observation.label.replace(/_/, "-")
+        observationEntry.observer = observationEntry.observer.toLowerCase()
+        observationEntry.observer = observationEntry.observer.replace(/_/, "-")
+    } catch (error) {}
+    
     // perform id extraction before check
     if (observationEntry instanceof Object) {
         observationEntry.videoId = extractYoutubeId(observationEntry.videoId)

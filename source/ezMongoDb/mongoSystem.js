@@ -49,9 +49,10 @@ module.exports = {
         return db
     },
 
-    async connectToMongoDb({ address, port, username, database, pathToMongoLock, fullUrl, backupFolder }) {
+    async connectToMongoDb({ address, port, username, databaseName, pathToMongoLock, fullUrl, backupFolder }) {
         module.exports.backupFolder = backupFolder
-        const mongoUrl = `mongodb://${address}:${port}/${username}/${database}`
+        console.debug(`databaseName is:`,databaseName)
+        const mongoUrl = `mongodb://${address}:${port}/${username}/${databaseName}`
         attemptConnection = async (resolve, reject)=>{
             try {
                 let client = await mongoDb.MongoClient.connect(fullUrl||mongoUrl, {useUnifiedTopology: true})
@@ -60,7 +61,7 @@ module.exports = {
                 setInterval(() => { module.exports.timeMachine.createBackup() }, oneWeekInMilliseconds)
                 resolve({
                     client,
-                    db: client.db(database),
+                    db: client.db(databaseName),
                 })
             } catch (error) {
                 // if its a conntection issue retry
