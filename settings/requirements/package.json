@@ -4,7 +4,7 @@
         "port": 6283,
         "databaseSetup": {
             "pathToMongoLock": "/data/db/mongod.lock",
-            "database": "main",
+            "database": "submission-5",
             "username": "admin",
             "port": 27017,
             "databasePath": "./database",
