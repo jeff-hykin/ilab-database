@@ -1,4 +1,2 @@
 #!/usr/bin/env bash 
-DATABASE_PATH="$(node -e 'console.log(require("./package.json").parameters.databaseSetup.databasePath)')"
-mkdir -p "$DATABASE_PATH"
-mongod --bind_ip 127.0.0.1 --dbpath "$DATABASE_PATH"
+mongo
