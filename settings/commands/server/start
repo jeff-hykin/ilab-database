@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+npx pm2 start raw_start.sh

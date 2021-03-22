@@ -61,8 +61,3 @@ process.stdout.on('data', (data)=>fs.appendFile(paths.serverLog, `${data}`, {}, 
 process.stderr.on('data', (data)=>fs.appendFile(paths.serverLog, `ERR: ${data}`, {}, ()=>0))
 process.on('exit', (exitCode)=>exitCode)
 fs.writeFileSync(paths.expressPid, `${process.pid}`)
-
-
-module.exports = {
-    paths
-}
