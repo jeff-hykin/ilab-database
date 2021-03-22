@@ -58,7 +58,7 @@ module.exports = async ([filterAndSort]) => {
         usernames: new Set(),
         videos: {},
         counts: {
-            total: observationEntries.length,
+            total: 0,
             fromHuman: 0,
             rejected: 0,
             confirmed: 0,
@@ -96,7 +96,7 @@ module.exports = async ([filterAndSort]) => {
         if (!results.videos[each.videoId]) { results.videos[each.videoId] = 0 }
         results.videos[each.videoId] += 1
         
-        
+        results.counts.total += 1
         if (each.isHuman) {
             results.counts.fromHuman += 1 
         } else {
@@ -117,9 +117,6 @@ module.exports = async ([filterAndSort]) => {
     })
     
     // save result for later
-    cache.lastOutput = results
+    cache.lastOutput = results // part of debouncer
     return results
 }
-
-            
-            
