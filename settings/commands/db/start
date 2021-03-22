@@ -5,5 +5,5 @@ LOG_FILE_PATH="$(node -e 'console.log(require("./package.json").parameters.paths
 mkdir -p "$(dirname "$LOG_FILE_PATH")"
 
 # actually start
-npx pm2 --service-name "mongo" --log "$LOG_FILE_PATH" start ./settings/commands/db/raw_start.sh
+npx pm2 --name "mongo" --log "$LOG_FILE_PATH" start ./settings/commands/db/raw_start.sh
 echo "logs sent to: $LOG_FILE_PATH"
