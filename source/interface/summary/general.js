@@ -5,7 +5,7 @@ const { mongoInterface, } = require("../../ezMongoDb/mongoSystem")
 const extractYoutubeId = require("../../toolbox/extractYoutubeId")
 
 const cache = {
-    debounceTime: 30, // seconds
+    debounceTime: 1, // seconds
     lastOutput: undefined,
     lastOutputTime: -Infinity,
 }
@@ -21,7 +21,7 @@ module.exports = async ([filterAndSort]) => {
         cache.lastOutputTime = now
     }
 
-
+    console.debug(`filterAndSort is:`,filterAndSort)
     let where = []
             
     // 
@@ -75,6 +75,7 @@ module.exports = async ([filterAndSort]) => {
     let min = `${filterAndSort.minlabelConfidence}`; min = min.length>0 && isFinite(min-0) ? min-0 : -Infinity
     let max = `${filterAndSort.maxlabelConfidence}`; max = max.length>0 && isFinite(max-0) ? max-0 : Infinity
     await observationIterator.forEach(each => {
+        console.debug(`[observationIterator] each is:`,each)
         // filters 
         if ((each.observation.labelConfidence >= min) && (each.observation.labelConfidence <= max)) { return }
         if (ignoresUnchecked && (each.confirmedBySomeone || each.rejectedBySomeone)) { return }
@@ -118,5 +119,6 @@ module.exports = async ([filterAndSort]) => {
     
     // save result for later
     cache.lastOutput = results // part of debouncer
+    console.debug(`results is:`,results)
     return results
 }
