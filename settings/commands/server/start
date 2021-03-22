@@ -4,4 +4,4 @@
 LOG_FILE_PATH="$(node -e 'console.log(require("./package.json").parameters.paths.serverLog)')"
 mkdir -p "$(dirname "$LOG_FILE_PATH")"
 
-npx pm2 start ./settings/commands/server/raw_start.sh --name "express" --log "$LOG_FILE_PATH"
+npx pm2 --name "express" --log "$LOG_FILE_PATH" start ./settings/commands/server/raw_start.sh
