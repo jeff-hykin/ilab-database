@@ -1,2 +1,7 @@
 #!/usr/bin/env bash
-npx pm2 start raw_start.sh
+
+# make the path for the log
+LOG_FILE_PATH="$(node -e 'console.log(require("./package.json").parameters.paths.serverLog)')"
+mkdir -p "$(dirname "$LOG_FILE_PATH")"
+
+npx pm2 start raw_start.sh --name "express" --log "$LOG_FILE_PATH"
