@@ -12,6 +12,7 @@ module.exports =  async () => {
     let usernames = new Set()
     // count the label for each
     await observationIterator.forEach(username => {
+        console.debug(`username is:`,username)
         if (typeof username === 'string' && username.length > 0) {
             usernames.add(username)
         }
