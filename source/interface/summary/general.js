@@ -77,8 +77,8 @@ module.exports = async ([filterAndSort]) => {
     await observationIterator.forEach(each => {
         console.debug(`[observationIterator] each is:`,each)
         // filters 
-        if (each.observation.labelConfidence < min) || (each.observation.labelConfidence > max))) { return }
-        if (hideUnchecked && (!each.confirmedBySomeone && !each.rejectedBySomeone))) { return }
+        if ((each.observation.labelConfidence < min) || (each.observation.labelConfidence > max)) { return }
+        if (hideUnchecked && (!each.confirmedBySomeone && !each.rejectedBySomeone)) { return }
         if (hideDisagreement && (each.confirmedBySomeone && each.rejectedBySomeone)) { return }
         
         // 
