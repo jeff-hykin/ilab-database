@@ -1,21 +1,2 @@
-#!/usr/bin/env bash 
-
-# remove tmp's leftover from a bad shutdown
-rm -f /tmp/mongodb-27017.sock
-
-DATABASE_PATH="$(node -e 'console.log(require("./package.json").parameters.databaseSetup.databasePath)')"
-mkdir -p "$DATABASE_PATH"
-
-LOG_FILE_PATH="$(node -e 'console.log(require("./package.json").parameters.paths.serverLog)')"
-
-mkdir -p "./settings/processes.nosync"
-mkdir -p "./settings/logs.nosync"
-{
-    # if it fails try repairing it (the or statement)
-    mongod --bind_ip 127.0.0.1 --dbpath "$DATABASE_PATH" || mongod --repair --bind_ip 127.0.0.1
-} > "$LOG_FILE_PATH" 2>&1 &
-pid_to_database="$!"
-echo "$pid_to_database" > "./settings/processes.nosync/database.pid"
-
-echo "database process started, PID: $pid_to_database"
-echo "logs sent to: $LOG_FILE_PATH"
+#!/usr/bin/env bash
+npx pm2 ./settings/commands/db/start_once
