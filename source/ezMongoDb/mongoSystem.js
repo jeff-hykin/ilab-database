@@ -804,54 +804,52 @@ module.exports = {
             }
             
             // 
-            // get results
+            // setup final output transformation
             // 
-            let results
-            if (interativeRetrival) {
-                let result = await collection.aggregate(aggregationSteps)
-                if (shouldntDecode) {
-                    return result
-                } else {
-                    return {
-                        ...result,
-                        // wrap the forEach so that the values
-                        // can be decoded
-                        forEach: (aFunction)=>{
-                            return result.forEach((value,...args)=>aFunction(module.exports.decodeValue(value), ...args))
-                        },
-                    }
+            let transformResults = (each)=> {
+                let newValue = each
+                
+                if (extractor) {
+                    newValue = extractor(newValue)
                 }
-            } else {
-                results = await collection.aggregate(aggregationSteps).toArray()
-            }
 
-            // 
-            // map results
-            // 
-            let mapFunction
-            if (shouldntDecode) {
-                mapFunction = (each) => each
-            } else {
-                mapFunction = each=>module.exports.decodeValue(each)
-            }
-            let preDecodedResults = results
-            if (extractor) {
-                results = results.map(each=>mapFunction(extractor(each)))
-            } else {
-                results = results.map(mapFunction)
+                if (!shouldntDecode) {
+                    newValue = module.exports.decodeValue(newValue)
+                }
+                
+                return newValue
             }
             
-            // convert to object if needed
-            if (returnObject) {
-                let output = {}
-                for (let eachIndex in preDecodedResults) {
-                    let id = preDecodedResults[eachIndex]._id
-                    output[id] = results[eachIndex]
+            // 
+            // get results
+            // 
+            if (interativeRetrival) {
+                let result = await collection.aggregate(aggregationSteps)
+                // wrap the result's forEach with a tranformation function 
+                return {
+                    ...result,
+                    // wrap the forEach so that the values
+                    // can be decoded
+                    forEach: (aFunction)=>{
+                        return result.forEach((value,...args)=>aFunction(transformResults(value), ...args))
+                    },
                 }
-                results = output
+            } else {
+                let results = await collection.aggregate(aggregationSteps).toArray()
+                preDecodedResults = results
+                results = results.map(transformResults)
+                // convert to object if needed
+                if (returnObject) {
+                    let output = {}
+                    for (let eachIndex in preDecodedResults) {
+                        let id = preDecodedResults[eachIndex]._id
+                        output[id] = results[eachIndex]
+                    }
+                    results = output
+                }
+                console.log(`returning getAll() results`)
+                return results
             }
-            console.log(`returning getAll() results`)
-            return results
             
             // TODO: should encodedExclusions apply locally
 
