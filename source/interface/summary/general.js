@@ -1,8 +1,8 @@
 const { recursivelyAllAttributesOf, get, merge, valueIs, logBlock, dynamicSort, checkIf, requireThat } = require("good-js")
 const { v4: generateUuid } = require('uuid')
-const { mongoInterface, } = require("../ezMongoDb/mongoSystem")
-const extractYoutubeId = require("../toolbox/extractYoutubeId")
 const _ = require("lodash")
+const { mongoInterface, } = require("../../ezMongoDb/mongoSystem")
+const extractYoutubeId = require("../../toolbox/extractYoutubeId")
 
 const cache = {
     debounceTime: 30, // seconds
