@@ -68,8 +68,8 @@ module.exports = async ([filterAndSort]) => {
     // 
     // this section should be rewritten to use the search^ instead of Javascript filters
     // 
-    const ignoresUnchecked = !filterAndSort.validation.includes("Unchecked")
-    const ignoresDisagreement = !filterAndSort.validation.includes("Disagreement")
+    const hideUnchecked = !filterAndSort.validation.includes("Unchecked")
+    const hideDisagreement = !filterAndSort.validation.includes("Disagreement")
     // this is so weird because of the dumb ways Javascript handles string->number
     // it behaves like if ($root.filterAndSort.minlabelConfidence) then min = $root.filterAndSort.minlabelConfidence
     let min = `${filterAndSort.minlabelConfidence}`; min = min.length>0 && isFinite(min-0) ? min-0 : -Infinity
@@ -77,11 +77,10 @@ module.exports = async ([filterAndSort]) => {
     await observationIterator.forEach(each => {
         console.debug(`[observationIterator] each is:`,each)
         // filters 
-        if (!((each.observation.labelConfidence >= min) && (each.observation.labelConfidence <= max))) { return }
-        if (!(ignoresUnchecked && (each.confirmedBySomeone || each.rejectedBySomeone))) { return }
-        if (!(ignoresUnchecked && (!(each.confirmedBySomeone && each.rejectedBySomeone)))) { return }
+        if (each.observation.labelConfidence < min) || (each.observation.labelConfidence > max))) { return }
+        if (hideUnchecked && (!each.confirmedBySomeone && !each.rejectedBySomeone))) { return }
+        if (hideDisagreement && (each.confirmedBySomeone && each.rejectedBySomeone)) { return }
         
-
         // 
         // this section is actual logic
         // 
