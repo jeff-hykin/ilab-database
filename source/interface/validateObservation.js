@@ -71,7 +71,7 @@ async function checkObservation(observationEntry) {
     //
     nonEmptyStringCheck("observation.label", observation.label)
     if (!observation.label.match(namePattern)) {
-        throw Error(`The observationEntry's observation.label ${JSON.stringify(observation.label)} does not meet the requirements (only letters, numbers, underscores, dashs, and periods).\nIn programmer-terms the name needs to match the following regex pattern: ${namePattern}`)
+        throw Error(`The observationEntry's observation.label ${JSON.stringify(observation.label)} does not meet the name requirements (only letters, numbers, underscores, dashes, and periods).\nIn programmer-terms the name needs to match the following regex pattern: ${namePattern}`)
     }
 
     // 
@@ -104,7 +104,7 @@ async function checkObserver(observation) {
     nonEmptyStringCheck("observer", observation.observer)
     let username = observation.observer
     if (!username.match(namePattern)) {
-        throw Error(`the observation \`observer\` (${JSON.stringify(observation.observer)}) does not meet the requirements of ${namePattern}\nIn English that should mean only letters, numbers, underscores, dashs, and periods`)
+        throw Error(`The observationEntry's observer ${JSON.stringify(observation.observer)} does not meet the name requirements (only letters, numbers, underscores, dashes, and periods).\nIn programmer-terms the name needs to match the following regex pattern: ${namePattern}`)
     }
     
     // 
