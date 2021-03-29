@@ -209,7 +209,7 @@ module.exports = async ([observationEntry]) => {
             checkStartAndEndTime(observationEntry)
         }
     } catch (error) {
-        return error.message+`\nobservation JSON: ${JSON.stringify(observation)}`
+        return error.message+`\nobservationEntry JSON: ${JSON.stringify(observationEntry)}`
     }
 
     return true
