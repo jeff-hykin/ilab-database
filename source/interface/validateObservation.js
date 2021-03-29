@@ -34,7 +34,7 @@ function booleanishCheck(name, value) {
 
 function checkVideoId(observation) {
     if (typeof observation.videoId !== 'string') {
-        throw Error(`\`videoId\` should be the id (string) of for the video. Instead it was ${observation.videoId}\nobservation:${JSON.stringify(observation)}`)
+        throw Error(`\`videoId\` should be the id (string) of for the video. Instead it was ${observation.videoId}`)
     }
     // TODO: remove this once video ids not on youtube are allowed
     if (observation.videoId.length != 11) {
@@ -209,7 +209,7 @@ module.exports = async ([observationEntry]) => {
             checkStartAndEndTime(observationEntry)
         }
     } catch (error) {
-        return error.message
+        return error.message+`\nobservation JSON: ${JSON.stringify(observation)}`
     }
 
     return true
