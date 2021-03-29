@@ -82,7 +82,7 @@ async function checkObservation(observationEntry) {
     }
     let stringThatWasToSimilar
     if (stringThatWasToSimilar = tooSimilarToExistingStrings({ existingStrings: labelNames, newString: observation.label })) {
-        throw Error(`The observation's \`observation.label\` "${observation.label}" is similar to the existing observation.label ${stringThatWasToSimilar}.\nPlease choose a new name that is either significantly different or exactly the same`)
+        throw Error(`The observation's observation.label "${observation.label}" is similar to the existing observation.label "${stringThatWasToSimilar}".\nPlease choose a new name that is either significantly different or exactly the same`)
     }
     labelNames.push(observation.label)
 
