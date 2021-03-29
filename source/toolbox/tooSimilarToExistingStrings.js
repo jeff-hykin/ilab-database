@@ -1,6 +1,6 @@
 const levenshtein = require('js-levenshtein')
 
-modules.export = ({ existingStrings, newString, closenessThreshold=2 }) => {
+module.exports = ({ existingStrings, newString, closenessThreshold=2 }) => {
     for (let eachExistingString of existingStrings) {
         // if there is an exact match, then its directly refering to one that exists
         if (eachExistingString == newString) {
