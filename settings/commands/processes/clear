@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-pm2 delete all
+npx pm2 delete all
