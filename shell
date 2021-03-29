@@ -1,5 +1,6 @@
 #! /usr/bin/env nix-shell
 #! nix-shell -i bash -p bash_5 -I nixpkgs=https://github.com/NixOS/nixpkgs/archive/046f8835dcb9082beb75bb471c28c832e1b067b6.tar.gz
+# sv#2pqDZK@]0v.E3
 
 # the comments above^ are special
 #   they tell the system to process this using nix-shell
