@@ -117,22 +117,22 @@ async function checkObserver(observation) {
     // 
     // name similarity check
     // 
-    if (observerNames.length == 0) {
-        observerNames = await getUsernames()
-    }
-    if (!observerNames.includes(username)) {
-        let potentialMisname = didYouMean(username, observerNames)
-        if (potentialMisname instanceof Array) {
-            potentialMisname = potentialMisname[0]
-        }
-        if (typeof potentialMisname == "string" && potentialMisname.length > 0) {
-            // if they are similar, but not the same
-            if (potentialMisname !== username) {
-                throw Error(`the observation's \`observer\` is similar to the existing username ${potentialMisname}. To avoid accidents, if you created that name, please use it instead of ${username}. If you did not create that name, please choose a new name that is significantly different from it`)
-            }
-        }
-    }
-    observerNames.push(username)
+        // if (observerNames.length == 0) {
+        //     observerNames = await getUsernames()
+        // }
+        // if (!observerNames.includes(username)) {
+        //     let potentialMisname = didYouMean(username, observerNames)
+        //     if (potentialMisname instanceof Array) {
+        //         potentialMisname = potentialMisname[0]
+        //     }
+        //     if (typeof potentialMisname == "string" && potentialMisname.length > 0) {
+        //         // if they are similar, but not the same
+        //         if (potentialMisname !== username) {
+        //             throw Error(`the observation's \`observer\` ${} is similar to the existing username ${potentialMisname}. To avoid accidents, if you created that name, please use it instead of ${username}. If you did not create that name, please choose a new name that is significantly different from it`)
+        //         }
+        //     }
+        // }
+        // observerNames.push(username)
     
     // 
     // make sure the observer is either human or machine, but not both
