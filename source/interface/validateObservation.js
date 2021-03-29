@@ -34,7 +34,7 @@ function booleanishCheck(name, value) {
 
 function checkVideoId(observation) {
     if (typeof observation.videoId !== 'string') {
-        throw Error(`\`videoId\` should be the id (string) of for the video. Instead it was ${observation.videoId}`)
+        throw Error(`\`videoId\` should be the id (string) of for the video. Instead it was ${observation.videoId}\nobservation:${JSON.stringify(observation)}`)
     }
     // TODO: remove this once video ids not on youtube are allowed
     if (observation.videoId.length != 11) {
@@ -71,7 +71,7 @@ async function checkObservation(observationEntry) {
     //
     nonEmptyStringCheck("observation.label", observation.label)
     if (!observation.label.match(namePattern)) {
-        throw Error(`The observationEntry's observation.label ${JSON.stringify(observation.label)} does not meet the name requirements (only letters, numbers, underscores, dashes, and periods).\nIn programmer-terms the name needs to match the following regex pattern: ${namePattern}`)
+        throw Error(`The observationEntry's observation.label ${JSON.stringify(observation.label)} does not meet the name requirements\n(only letters, numbers, underscores, dashes, and periods).\nIn programmer-terms the name needs to match the following regex pattern: ${namePattern}`)
     }
 
     // 
@@ -104,7 +104,7 @@ async function checkObserver(observation) {
     nonEmptyStringCheck("observer", observation.observer)
     let username = observation.observer
     if (!username.match(namePattern)) {
-        throw Error(`The observationEntry's observer ${JSON.stringify(observation.observer)} does not meet the name requirements (only letters, numbers, underscores, dashes, and periods).\nIn programmer-terms the name needs to match the following regex pattern: ${namePattern}`)
+        throw Error(`The observationEntry's observer ${JSON.stringify(observation.observer)} does not meet the name requirements\n(only letters, numbers, underscores, dashes, and periods).\nIn programmer-terms the name needs to match the following regex pattern: ${namePattern}`)
     }
     
     // 
