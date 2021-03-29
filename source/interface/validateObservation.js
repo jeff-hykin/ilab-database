@@ -80,8 +80,9 @@ async function checkObservation(observationEntry) {
     if (labelNames.length == 0) {
         labelNames = await getLabelNames()
     }
-    if (tooSimilarToExistingStrings({ existingStrings: labelNames, newString: observation.label })) {
-        throw Error(`The observation's \`observation.label\` "${observation.label}" is similar to the existing observation.label ${potentialMisname}.\nPlease choose a new name that is either significantly different or exactly the same`)
+    let stringThatWasToSimilar
+    if (stringThatWasToSimilar = tooSimilarToExistingStrings({ existingStrings: labelNames, newString: observation.label })) {
+        throw Error(`The observation's \`observation.label\` "${observation.label}" is similar to the existing observation.label ${stringThatWasToSimilar}.\nPlease choose a new name that is either significantly different or exactly the same`)
     }
     labelNames.push(observation.label)
 
@@ -112,8 +113,9 @@ async function checkObserver(observation) {
     if (observerNames.length == 0) {
         observerNames = await getUsernames()
     }
-    if (tooSimilarToExistingStrings({ existingStrings: observerNames, newString: username })) {
-        throw Error(`the observation's \`observer\` "${username}" is similar to the existing username ${potentialMisname}.\nPlease choose a new name that is either significantly different or exactly the same`)
+    let stringThatWasToSimilar
+    if (stringThatWasToSimilar = tooSimilarToExistingStrings({ existingStrings: observerNames, newString: username })) {
+        throw Error(`the observation's \`observer\` "${username}" is similar to the existing username ${stringThatWasToSimilar}.\nPlease choose a new name that is either significantly different or exactly the same`)
     }
     // if the check passed, then add the user to the list
     observerNames.push(username)

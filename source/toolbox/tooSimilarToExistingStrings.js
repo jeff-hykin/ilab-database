@@ -14,10 +14,10 @@ module.exports = ({ existingStrings, newString, closenessThreshold=2 }) => {
         }
 
         // simplify
-        eachExistingString = eachExistingString.toLowerCase().replace(/_/, "-")
+        simplifiedExistingString = eachExistingString.toLowerCase().replace(/_/, "-")
         simplifiedNewString = newString.toLowerCase().replace(/_/, "-")
-        if (levenshtein(eachExistingString, simplifiedNewString) <= closenessThreshold) {
-            return true
+        if (levenshtein(simplifiedExistingString, simplifiedNewString) <= closenessThreshold) {
+            return eachExistingString
         }
     }
     return false
