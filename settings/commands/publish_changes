@@ -8,4 +8,4 @@ function git_sync { # git push && git pull
     fi
 }
 git_sync "$@"
-ssh -t jeff@csce-jiang1.engr.tamu.edu "git pull;processes restart_all"
+ssh -t jeff@csce-jiang1.engr.tamu.edu "git pull;./settings/commands/processes/restart_all"
