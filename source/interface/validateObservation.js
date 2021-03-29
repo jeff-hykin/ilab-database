@@ -2,6 +2,7 @@ let didYouMean = require("didyoumean")
 
 const getUsernames = require("../interface/getUsernames")
 const getLabelNames = require("../interface/getLabelNames")
+const tooSimilarToExistingStrings = require("../toolbox/tooSimilarToExistingStrings")
 const { mongoInterface, } = require("../ezMongoDb/mongoSystem")
 
 // TODO: attempt auto-detection of duplicate upload values
@@ -79,17 +80,8 @@ async function checkObservation(observationEntry) {
     if (labelNames.length == 0) {
         labelNames = await getLabelNames()
     }
-    if (!labelNames.includes(observation.label)) {
-        let potentialMisname = didYouMean(observation.label, labelNames)
-        if (potentialMisname instanceof Array) {
-            potentialMisname = potentialMisname[0]
-        }
-        if (typeof potentialMisname == "string" && potentialMisname.length > 0) {
-            // if they are similar, but not the same
-            if (potentialMisname !== observation.label) {
-                throw Error(`The observation's \`observation.label\` is similar to the existing observation.label ${potentialMisname}. To avoid accidents, if you created that name, please use it instead of ${observation.label}. If you did not create that name, please choose a new name that is significantly different from it`)
-            }
-        }
+    if (tooSimilarToExistingStrings({ existingStrings: labelNames, newString: observation.label })) {
+        throw Error(`The observation's \`observation.label\` "${observation.label}" is similar to the existing observation.label ${potentialMisname}.\nPlease choose a new name that is either significantly different or exactly the same`)
     }
     labelNames.push(observation.label)
 
@@ -117,22 +109,14 @@ async function checkObserver(observation) {
     // 
     // name similarity check
     // 
-        // if (observerNames.length == 0) {
-        //     observerNames = await getUsernames()
-        // }
-        // if (!observerNames.includes(username)) {
-        //     let potentialMisname = didYouMean(username, observerNames)
-        //     if (potentialMisname instanceof Array) {
-        //         potentialMisname = potentialMisname[0]
-        //     }
-        //     if (typeof potentialMisname == "string" && potentialMisname.length > 0) {
-        //         // if they are similar, but not the same
-        //         if (potentialMisname !== username) {
-        //             throw Error(`the observation's \`observer\` ${} is similar to the existing username ${potentialMisname}. To avoid accidents, if you created that name, please use it instead of ${username}. If you did not create that name, please choose a new name that is significantly different from it`)
-        //         }
-        //     }
-        // }
-        // observerNames.push(username)
+    if (observerNames.length == 0) {
+        observerNames = await getUsernames()
+    }
+    if (tooSimilarToExistingStrings({ existingStrings: observerNames, newString: username })) {
+        throw Error(`the observation's \`observer\` "${username}" is similar to the existing username ${potentialMisname}.\nPlease choose a new name that is either significantly different or exactly the same`)
+    }
+    // if the check passed, then add the user to the list
+    observerNames.push(username)
     
     // 
     // make sure the observer is either human or machine, but not both
