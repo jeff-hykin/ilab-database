@@ -5,8 +5,6 @@ const getLabelNames = require("../interface/getLabelNames")
 const tooSimilarToExistingStrings = require("../toolbox/tooSimilarToExistingStrings")
 const { mongoInterface, } = require("../ezMongoDb/mongoSystem")
 
-// TODO: attempt auto-detection of duplicate upload values
-
 const namePattern = /^[a-zA-Z0-9_\-.]+$/
 
 function nonEmptyStringCheck(name, value) {
