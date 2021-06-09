@@ -1,9 +1,36 @@
 #!/usr/bin/env bash 
-echo "============================"
-echo "Enter the name of the backup"
-echo "============================"
-ls -1 ./backups.nosync
+echo "Available Backups:"
+ls -1 ./backups.nosync | sed 's/^/   /g'
 
-echo "Don't forget to restore the compressionMapping.json"
+echo 
+echo 
+echo "Enter the name of the backup you want to restore"
+echo 
 read backup_name
+
 mongorestore --dir "./backups.nosync/$backup_name"
+
+current_compression_mapping="./source/ezMongoDb/compressionMapping.json"
+compression_mapping_backup="./backups.nosync/$backup_name/compressionMapping.json"
+# check if compression mapping file exists in the backup
+if [ -f "$compression_mapping_backup" ]
+then
+    old_compression_mapping="./source/ezMongoDb/compressionMapping.old.json"
+    current_compression_mapping
+    # save one old one just encase
+    rm -f "$old_compression_mapping"
+    # check if file exists
+    if [ -f "$current_compression_mapping" ]
+    then
+        mv "$current_compression_mapping" "$old_compression_mapping"
+    fi
+    # restore the one from the backup
+    cp "$compression_mapping_backup" "$current_compression_mapping"
+else
+    echo 
+    echo "That is a little strange, I don't see a compressionMapping.json inside the backup"
+    echo "All the data has been restored, and I'm just going to use the existing compressionMapping.json"
+    echo "compressionMapping.json is the realKeyName => garbled/compressed key name (stored in the database)"
+    echo "(so it is important, but if everything behaves fine, maybe its okay your backup didnt have one)"
+    echo
+fi
