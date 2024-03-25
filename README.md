@@ -15,3 +15,8 @@ After doing the `commands/start` you can run
 - While `processes restart_all` exists, sometimes it doesn't work. If you're having issues, you can find what proceses are using the port by running `lsof -i tcp:6283` (6283 is the port number) and `lsof -i tcp:27017`.
 
 The port numbers are picked by the `package.json` file.
+
+
+# Data Extraction
+
+Running `db/backup` should generate a .json file that has all the data in it. It can be used directly or as a restore point.

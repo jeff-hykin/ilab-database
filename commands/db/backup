@@ -1,2 +1,7 @@
 #!/usr/bin/env bash 
-mongodump -o "./backups.nosync/$backup_name"
+if [ -z "$1" ]
+then
+    echo please specify a backup name
+    exit
+fi
+mongodump -o "./backups.nosync/$1"
