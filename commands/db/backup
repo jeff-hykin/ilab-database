@@ -4,4 +4,5 @@ then
     echo please specify a backup name
     exit
 fi
+echo saving to "./backups.nosync/$1"
 mongodump -o "./backups.nosync/$1"
