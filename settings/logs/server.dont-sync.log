@@ -771,3 +771,8 @@ calling convertSearchFilter
 "valueOf" in eachFilter is: true
 mongoFilter is: { '@1': { '$eq': 'segment' }, '@3': { '$eq': 'e2HzKY5imTE' } }
 returning getAll() results
+{"t":{"$date":"2024-03-25T17:32:32.103-05:00"},"s":"I",  "c":"NETWORK",  "id":22944,   "ctx":"conn5","msg":"Connection ended","attr":{"remote":"127.0.0.1:65059","uuid":"c4bab240-21ae-448e-885c-515386c5830d","connectionId":5,"connectionCount":5}}
+{"t":{"$date":"2024-03-25T17:32:32.103-05:00"},"s":"I",  "c":"NETWORK",  "id":22944,   "ctx":"conn7","msg":"Connection ended","attr":{"remote":"127.0.0.1:65061","uuid":"8fd6089f-75eb-423f-8fba-0f78feebcd07","connectionId":7,"connectionCount":6}}
+{"t":{"$date":"2024-03-25T17:32:33.428-05:00"},"s":"I",  "c":"NETWORK",  "id":22944,   "ctx":"conn3","msg":"Connection ended","attr":{"remote":"127.0.0.1:63789","uuid":"3a1798a6-0f7b-4aac-a225-e1f71773f03f","connectionId":3,"connectionCount":4}}
+{"t":{"$date":"2024-03-25T17:32:33.484-05:00"},"s":"I",  "c":"NETWORK",  "id":22944,   "ctx":"conn4","msg":"Connection ended","attr":{"remote":"127.0.0.1:63790","uuid":"7b83c6cb-0593-4ead-b79c-dd9923a64a03","connectionId":4,"connectionCount":3}}
+{"t":{"$date":"2024-03-25T17:32:33.996-05:00"},"s":"I",  "c":"NETWORK",  "id":22944,   "ctx":"conn6","msg":"Connection ended","attr":{"remote":"127.0.0.1:65060","uuid":"4ae0fdb0-98c7-4e7c-81d5-1af069086de5","connectionId":6,"connectionCount":2}}
