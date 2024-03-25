@@ -5,7 +5,8 @@ See the [PDF](https://github.com/jeff-hykin/iilvd-online/blob/master/iLab%20Data
 
 # Setup / Installation
 
-Everything is detailed in the `documentation/setup.md`!
+Note: the oneline installer will probably run for more than an hour, so you might want to kick it off right before grabbing lunch.
+Everything for installation is detailed in the `documentation/setup.md`!
 
 # Usage
 

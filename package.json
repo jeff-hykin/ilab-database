@@ -13,9 +13,9 @@
         },
         "paths": {
             "expressMain": "./source/main.js",
-            "serverLog": "./settings/logs/server.dont-sync.log",
-            "mongoPid": "./settings/processes/mongo.dont-sync.pid",
-            "expressPid": "./settings/processes/express.dont-sync.pid"
+            "serverLog": "./settings/logs/server.do_not_sync.log",
+            "mongoPid": "./settings/processes/mongo.do_not_sync.pid",
+            "expressPid": "./settings/processes/express.do_not_sync.pid"
         }
     },
     "version": "1.0.0",

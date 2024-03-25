@@ -776,3 +776,503 @@ returning getAll() results
 {"t":{"$date":"2024-03-25T17:32:33.428-05:00"},"s":"I",  "c":"NETWORK",  "id":22944,   "ctx":"conn3","msg":"Connection ended","attr":{"remote":"127.0.0.1:63789","uuid":"3a1798a6-0f7b-4aac-a225-e1f71773f03f","connectionId":3,"connectionCount":4}}
 {"t":{"$date":"2024-03-25T17:32:33.484-05:00"},"s":"I",  "c":"NETWORK",  "id":22944,   "ctx":"conn4","msg":"Connection ended","attr":{"remote":"127.0.0.1:63790","uuid":"7b83c6cb-0593-4ead-b79c-dd9923a64a03","connectionId":4,"connectionCount":3}}
 {"t":{"$date":"2024-03-25T17:32:33.996-05:00"},"s":"I",  "c":"NETWORK",  "id":22944,   "ctx":"conn6","msg":"Connection ended","attr":{"remote":"127.0.0.1:65060","uuid":"4ae0fdb0-98c7-4e7c-81d5-1af069086de5","connectionId":6,"connectionCount":2}}
+filterAndSort is: {
+  maxlabelConfidence: '',
+  minlabelConfidence: '',
+  observer: 'p1',
+  kindOfObserver: 'Either',
+  validation: [ 'Unchecked', 'Confirmed', 'Rejected', 'Disagreement' ],
+  labelName: 'New Labe'
+}
+calling convertSearchFilter
+"valueOf" in eachFilter is: true
+"valueOf" in eachFilter is: true
+"valueOf" in eachFilter is: true
+mongoFilter is: {
+  '@1': { '$eq': 'segment' },
+  '@9.@a': { '$eq': 'New Labe' },
+  '@2': { '$eq': 'p1' }
+}
+{"t":{"$date":"2024-03-25T17:50:13.852-05:00"},"s":"I",  "c":"NETWORK",  "id":22943,   "ctx":"listener","msg":"Connection accepted","attr":{"remote":"127.0.0.1:50527","uuid":"b7370f70-24dd-4b14-86a9-10acc517855b","connectionId":8,"connectionCount":3}}
+{"t":{"$date":"2024-03-25T17:50:13.853-05:00"},"s":"I",  "c":"NETWORK",  "id":51800,   "ctx":"conn8","msg":"client metadata","attr":{"remote":"127.0.0.1:50527","client":"conn8","doc":{"driver":{"name":"nodejs","version":"3.6.2"},"os":{"type":"Darwin","name":"darwin","architecture":"arm64","version":"21.6.0"},"platform":"'Node.js v14.17.1, LE (unified)"}}}
+fresh summary is: {
+  finishedComputing: true,
+  uncheckedObservations: [],
+  rejected: [],
+  labels: {},
+  observers: {},
+  usernames: Set(0) {},
+  videos: {},
+  counts: {
+    total: 0,
+    fromHuman: 0,
+    rejected: 0,
+    confirmed: 0,
+    disagreement: 0
+  }
+}
+filterAndSort is: {
+  maxlabelConfidence: '',
+  minlabelConfidence: '',
+  observer: 'p1',
+  kindOfObserver: 'Either',
+  validation: [ 'Unchecked', 'Confirmed', 'Rejected', 'Disagreement' ],
+  labelName: 'New Label'
+}
+calling convertSearchFilter
+"valueOf" in eachFilter is: true
+"valueOf" in eachFilter is: true
+"valueOf" in eachFilter is: true
+mongoFilter is: {
+  '@1': { '$eq': 'segment' },
+  '@9.@a': { '$eq': 'New Label' },
+  '@2': { '$eq': 'p1' }
+}
+[observationIterator] each is: {
+  type: 'segment',
+  observer: 'p1',
+  videoId: 'e2HzKY5imTE',
+  startTime: 1119.927,
+  endTime: 1121.522,
+  isHuman: true,
+  confirmedBySomeone: false,
+  rejectedBySomeone: false,
+  observation: {
+    label: 'New Label',
+    labelConfidence: 0.95,
+    [Symbol(hiddenKeys)]: { size: 2, keys: [Array], '@a': 'New Label', '@b': 0.95 }
+  },
+  [Symbol(hiddenKeys)]: {
+    _id: '0.610661869336524',
+    '@1': 'segment',
+    '@2': 'p1',
+    '@3': 'e2HzKY5imTE',
+    '@4': 1119.927,
+    '@5': 1121.522,
+    '@6': true,
+    '@7': false,
+    '@8': false,
+    '@9': { size: 2, keys: [Array], '@a': 'New Label', '@b': 0.95 },
+    keys: [
+      '@1', '@3', '@4',
+      '@5', '@2', '@6',
+      '@7', '@8', '@9'
+    ],
+    size: 9
+  }
+}
+fresh summary is: {
+  finishedComputing: true,
+  uncheckedObservations: [],
+  rejected: [],
+  labels: { 'New Label': 1 },
+  observers: { p1: 1 },
+  usernames: Set(0) {},
+  videos: { e2HzKY5imTE: 1 },
+  counts: {
+    total: 1,
+    fromHuman: 1,
+    rejected: 0,
+    confirmed: 0,
+    disagreement: 0
+  }
+}
+calling convertSearchFilter
+"valueOf" in eachFilter is: true
+mongoFilter is: { '@1': { '$eq': 'segment' } }
+calling convertSearchFilter
+"hiddenValueOf" in eachFilter is: true
+mongoFilter is: { _id: { '$nin': [ 'e2HzKY5imTE' ] } }
+calling convertSearchFilter
+mongoFilter is: {}
+calling convertSearchFilter
+"valueOf" in eachFilter is: true
+"valueOf" in eachFilter is: true
+mongoFilter is: { '@1': { '$eq': 'segment' }, '@3': { '$eq': 'e2HzKY5imTE' } }
+calling convertSearchFilter
+"valueOf" in eachFilter is: true
+"valueOf" in eachFilter is: true
+mongoFilter is: { '@1': { '$eq': 'segment' }, '@3': { '$eq': 'e2HzKY5imTE' } }
+returning getAll() results
+{"t":{"$date":"2024-03-25T17:51:06.064-05:00"},"s":"I",  "c":"NETWORK",  "id":22943,   "ctx":"listener","msg":"Connection accepted","attr":{"remote":"127.0.0.1:50599","uuid":"1fd1cf2e-bcb7-4301-92cd-e49cd0cd1560","connectionId":9,"connectionCount":4}}
+returning getAll() results
+{"t":{"$date":"2024-03-25T17:51:06.064-05:00"},"s":"I",  "c":"NETWORK",  "id":51800,   "ctx":"conn9","msg":"client metadata","attr":{"remote":"127.0.0.1:50599","client":"conn9","doc":{"driver":{"name":"nodejs","version":"3.6.2"},"os":{"type":"Darwin","name":"darwin","architecture":"arm64","version":"21.6.0"},"platform":"'Node.js v14.17.1, LE (unified)"}}}
+returning getAll() results
+{"t":{"$date":"2024-03-25T17:51:06.071-05:00"},"s":"I",  "c":"NETWORK",  "id":22943,   "ctx":"listener","msg":"Connection accepted","attr":{"remote":"127.0.0.1:50601","uuid":"5cf8cc2e-eb30-4d6a-a619-307e1bae4b3e","connectionId":10,"connectionCount":5}}
+{"t":{"$date":"2024-03-25T17:51:06.071-05:00"},"s":"I",  "c":"NETWORK",  "id":22943,   "ctx":"listener","msg":"Connection accepted","attr":{"remote":"127.0.0.1:50602","uuid":"5f55a39f-99d6-4f6d-899d-481217a60c26","connectionId":11,"connectionCount":6}}
+{"t":{"$date":"2024-03-25T17:51:06.071-05:00"},"s":"I",  "c":"NETWORK",  "id":51800,   "ctx":"conn10","msg":"client metadata","attr":{"remote":"127.0.0.1:50601","client":"conn10","doc":{"driver":{"name":"nodejs","version":"3.6.2"},"os":{"type":"Darwin","name":"darwin","architecture":"arm64","version":"21.6.0"},"platform":"'Node.js v14.17.1, LE (unified)"}}}
+{"t":{"$date":"2024-03-25T17:51:06.071-05:00"},"s":"I",  "c":"NETWORK",  "id":51800,   "ctx":"conn11","msg":"client metadata","attr":{"remote":"127.0.0.1:50602","client":"conn11","doc":{"driver":{"name":"nodejs","version":"3.6.2"},"os":{"type":"Darwin","name":"darwin","architecture":"arm64","version":"21.6.0"},"platform":"'Node.js v14.17.1, LE (unified)"}}}
+calling convertSearchFilter
+"valueOf" in eachFilter is: true
+"valueOf" in eachFilter is: true
+mongoFilter is: { '@1': { '$eq': 'segment' }, '@3': { '$eq': 'e2HzKY5imTE' } }
+returning getAll() results
+filterAndSort is: {
+  maxlabelConfidence: '',
+  minlabelConfidence: '',
+  observer: 'p1',
+  kindOfObserver: 'Either',
+  validation: [ 'Unchecked', 'Confirmed', 'Rejected', 'Disagreement' ],
+  labelName: 'New Label'
+}
+calling convertSearchFilter
+"valueOf" in eachFilter is: true
+"valueOf" in eachFilter is: true
+"valueOf" in eachFilter is: true
+mongoFilter is: {
+  '@1': { '$eq': 'segment' },
+  '@9.@a': { '$eq': 'New Label' },
+  '@2': { '$eq': 'p1' }
+}
+[observationIterator] each is: {
+  type: 'segment',
+  observer: 'p1',
+  videoId: 'e2HzKY5imTE',
+  startTime: 1119.927,
+  endTime: 1121.522,
+  isHuman: true,
+  confirmedBySomeone: false,
+  rejectedBySomeone: false,
+  observation: {
+    label: 'New Label',
+    labelConfidence: 0.95,
+    [Symbol(hiddenKeys)]: { size: 2, keys: [Array], '@a': 'New Label', '@b': 0.95 }
+  },
+  [Symbol(hiddenKeys)]: {
+    _id: '0.610661869336524',
+    '@1': 'segment',
+    '@2': 'p1',
+    '@3': 'e2HzKY5imTE',
+    '@4': 1119.927,
+    '@5': 1121.522,
+    '@6': true,
+    '@7': false,
+    '@8': false,
+    '@9': { size: 2, keys: [Array], '@a': 'New Label', '@b': 0.95 },
+    keys: [
+      '@1', '@3', '@4',
+      '@5', '@2', '@6',
+      '@7', '@8', '@9'
+    ],
+    size: 9
+  }
+}
+fresh summary is: {
+  finishedComputing: true,
+  uncheckedObservations: [],
+  rejected: [],
+  labels: { 'New Label': 1 },
+  observers: { p1: 1 },
+  usernames: Set(0) {},
+  videos: { e2HzKY5imTE: 1 },
+  counts: {
+    total: 1,
+    fromHuman: 1,
+    rejected: 0,
+    confirmed: 0,
+    disagreement: 0
+  }
+}
+calling convertSearchFilter
+"valueOf" in eachFilter is: true
+"valueOf" in eachFilter is: true
+mongoFilter is: { '@1': { '$eq': 'segment' }, '@3': { '$eq': 'e2HzKY5imTE' } }
+returning getAll() results
+{"t":{"$date":"2024-03-25T17:57:06.034-05:00"},"s":"I",  "c":"NETWORK",  "id":22944,   "ctx":"conn11","msg":"Connection ended","attr":{"remote":"127.0.0.1:50602","uuid":"5f55a39f-99d6-4f6d-899d-481217a60c26","connectionId":11,"connectionCount":5}}
+{"t":{"$date":"2024-03-25T17:57:06.048-05:00"},"s":"I",  "c":"NETWORK",  "id":22944,   "ctx":"conn9","msg":"Connection ended","attr":{"remote":"127.0.0.1:50599","uuid":"1fd1cf2e-bcb7-4301-92cd-e49cd0cd1560","connectionId":9,"connectionCount":4}}
+{"t":{"$date":"2024-03-25T17:57:06.552-05:00"},"s":"I",  "c":"NETWORK",  "id":22944,   "ctx":"conn8","msg":"Connection ended","attr":{"remote":"127.0.0.1:50527","uuid":"b7370f70-24dd-4b14-86a9-10acc517855b","connectionId":8,"connectionCount":3}}
+{"t":{"$date":"2024-03-25T17:57:06.920-05:00"},"s":"I",  "c":"NETWORK",  "id":22944,   "ctx":"conn10","msg":"Connection ended","attr":{"remote":"127.0.0.1:50601","uuid":"5cf8cc2e-eb30-4d6a-a619-307e1bae4b3e","connectionId":10,"connectionCount":2}}
+calling convertSearchFilter
+"valueOf" in eachFilter is: true
+mongoFilter is: { '@1': { '$eq': 'segment' } }
+calling convertSearchFilter
+mongoFilter is: {}
+{"t":{"$date":"2024-03-25T18:10:44.280-05:00"},"s":"I",  "c":"NETWORK",  "id":22943,   "ctx":"listener","msg":"Connection accepted","attr":{"remote":"127.0.0.1:51876","uuid":"b3966ae3-99df-40e6-aa32-fcb0b277acf3","connectionId":12,"connectionCount":3}}
+{"t":{"$date":"2024-03-25T18:10:44.282-05:00"},"s":"I",  "c":"NETWORK",  "id":22943,   "ctx":"listener","msg":"Connection accepted","attr":{"remote":"127.0.0.1:51877","uuid":"91d5582c-20a0-4d9c-9c6a-71954dc8f469","connectionId":13,"connectionCount":4}}
+{"t":{"$date":"2024-03-25T18:10:44.283-05:00"},"s":"I",  "c":"NETWORK",  "id":51800,   "ctx":"conn12","msg":"client metadata","attr":{"remote":"127.0.0.1:51876","client":"conn12","doc":{"driver":{"name":"nodejs","version":"3.6.2"},"os":{"type":"Darwin","name":"darwin","architecture":"arm64","version":"21.6.0"},"platform":"'Node.js v14.17.1, LE (unified)"}}}
+calling convertSearchFilter
+"hiddenValueOf" in eachFilter is: true
+mongoFilter is: { _id: { '$nin': [ 'e2HzKY5imTE' ] } }
+{"t":{"$date":"2024-03-25T18:10:44.289-05:00"},"s":"I",  "c":"NETWORK",  "id":51800,   "ctx":"conn13","msg":"client metadata","attr":{"remote":"127.0.0.1:51877","client":"conn13","doc":{"driver":{"name":"nodejs","version":"3.6.2"},"os":{"type":"Darwin","name":"darwin","architecture":"arm64","version":"21.6.0"},"platform":"'Node.js v14.17.1, LE (unified)"}}}
+returning getAll() results
+{"t":{"$date":"2024-03-25T18:10:44.289-05:00"},"s":"I",  "c":"NETWORK",  "id":22943,   "ctx":"listener","msg":"Connection accepted","attr":{"remote":"127.0.0.1:51878","uuid":"e572ca90-baa9-4760-a933-335951a32e0e","connectionId":14,"connectionCount":5}}
+{"t":{"$date":"2024-03-25T18:10:44.290-05:00"},"s":"I",  "c":"NETWORK",  "id":51800,   "ctx":"conn14","msg":"client metadata","attr":{"remote":"127.0.0.1:51878","client":"conn14","doc":{"driver":{"name":"nodejs","version":"3.6.2"},"os":{"type":"Darwin","name":"darwin","architecture":"arm64","version":"21.6.0"},"platform":"'Node.js v14.17.1, LE (unified)"}}}
+filterAndSort is: {
+  maxlabelConfidence: '',
+  minlabelConfidence: '',
+  observer: 'p1',
+  kindOfObserver: 'Either',
+  validation: [ 'Unchecked', 'Confirmed', 'Rejected', 'Disagreement' ]
+}
+calling convertSearchFilter
+"valueOf" in eachFilter is: true
+"valueOf" in eachFilter is: true
+mongoFilter is: { '@1': { '$eq': 'segment' }, '@2': { '$eq': 'p1' } }
+[observationIterator] each is: {
+  type: 'segment',
+  observer: 'p1',
+  videoId: 'e2HzKY5imTE',
+  startTime: 10,
+  endTime: 20,
+  isHuman: true,
+  confirmedBySomeone: false,
+  rejectedBySomeone: false,
+  observation: {
+    label: 'Howdy',
+    labelConfidence: 0.95,
+    [Symbol(hiddenKeys)]: { size: 2, keys: [Array], '@a': 'Howdy', '@b': 0.95 }
+  },
+  [Symbol(hiddenKeys)]: {
+    _id: '0.5018240393943043',
+    '@1': 'segment',
+    '@2': 'p1',
+    '@3': 'e2HzKY5imTE',
+    '@4': 10,
+    '@5': 20,
+    '@6': true,
+    '@7': false,
+    '@8': false,
+    '@9': { size: 2, keys: [Array], '@a': 'Howdy', '@b': 0.95 },
+    keys: [
+      '@1', '@3', '@4',
+      '@5', '@2', '@6',
+      '@7', '@8', '@9'
+    ],
+    size: 9
+  }
+}
+[observationIterator] each is: {
+  type: 'segment',
+  observer: 'p1',
+  videoId: 'e2HzKY5imTE',
+  startTime: 1119.927,
+  endTime: 1121.522,
+  isHuman: true,
+  confirmedBySomeone: false,
+  rejectedBySomeone: false,
+  observation: {
+    label: 'New Label',
+    labelConfidence: 0.95,
+    [Symbol(hiddenKeys)]: { size: 2, keys: [Array], '@a': 'New Label', '@b': 0.95 }
+  },
+  [Symbol(hiddenKeys)]: {
+    _id: '0.610661869336524',
+    '@1': 'segment',
+    '@2': 'p1',
+    '@3': 'e2HzKY5imTE',
+    '@4': 1119.927,
+    '@5': 1121.522,
+    '@6': true,
+    '@7': false,
+    '@8': false,
+    '@9': { size: 2, keys: [Array], '@a': 'New Label', '@b': 0.95 },
+    keys: [
+      '@1', '@3', '@4',
+      '@5', '@2', '@6',
+      '@7', '@8', '@9'
+    ],
+    size: 9
+  }
+}
+fresh summary is: {
+  finishedComputing: true,
+  uncheckedObservations: [],
+  rejected: [],
+  labels: { Howdy: 1, 'New Label': 1 },
+  observers: { p1: 2 },
+  usernames: Set(0) {},
+  videos: { e2HzKY5imTE: 2 },
+  counts: {
+    total: 2,
+    fromHuman: 2,
+    rejected: 0,
+    confirmed: 0,
+    disagreement: 0
+  }
+}
+calling convertSearchFilter
+"valueOf" in eachFilter is: true
+mongoFilter is: { '@1': { '$eq': 'segment' } }
+calling convertSearchFilter
+"hiddenValueOf" in eachFilter is: true
+mongoFilter is: { _id: { '$nin': [ 'e2HzKY5imTE' ] } }
+calling convertSearchFilter
+mongoFilter is: {}
+returning getAll() results
+filterAndSort is: {
+  maxlabelConfidence: '',
+  minlabelConfidence: '',
+  observer: 'p1',
+  kindOfObserver: 'Either',
+  validation: [ 'Unchecked', 'Confirmed', 'Rejected', 'Disagreement' ]
+}
+calling convertSearchFilter
+"valueOf" in eachFilter is: true
+"valueOf" in eachFilter is: true
+mongoFilter is: { '@1': { '$eq': 'segment' }, '@2': { '$eq': 'p1' } }
+[observationIterator] each is: {
+  type: 'segment',
+  observer: 'p1',
+  videoId: 'e2HzKY5imTE',
+  startTime: 10,
+  endTime: 20,
+  isHuman: true,
+  confirmedBySomeone: false,
+  rejectedBySomeone: false,
+  observation: {
+    label: 'Howdy',
+    labelConfidence: 0.95,
+    [Symbol(hiddenKeys)]: { size: 2, keys: [Array], '@a': 'Howdy', '@b': 0.95 }
+  },
+  [Symbol(hiddenKeys)]: {
+    _id: '0.5018240393943043',
+    '@1': 'segment',
+    '@2': 'p1',
+    '@3': 'e2HzKY5imTE',
+    '@4': 10,
+    '@5': 20,
+    '@6': true,
+    '@7': false,
+    '@8': false,
+    '@9': { size: 2, keys: [Array], '@a': 'Howdy', '@b': 0.95 },
+    keys: [
+      '@1', '@3', '@4',
+      '@5', '@2', '@6',
+      '@7', '@8', '@9'
+    ],
+    size: 9
+  }
+}
+[observationIterator] each is: {
+  type: 'segment',
+  observer: 'p1',
+  videoId: 'e2HzKY5imTE',
+  startTime: 1119.927,
+  endTime: 1121.522,
+  isHuman: true,
+  confirmedBySomeone: false,
+  rejectedBySomeone: false,
+  observation: {
+    label: 'New Label',
+    labelConfidence: 0.95,
+    [Symbol(hiddenKeys)]: { size: 2, keys: [Array], '@a': 'New Label', '@b': 0.95 }
+  },
+  [Symbol(hiddenKeys)]: {
+    _id: '0.610661869336524',
+    '@1': 'segment',
+    '@2': 'p1',
+    '@3': 'e2HzKY5imTE',
+    '@4': 1119.927,
+    '@5': 1121.522,
+    '@6': true,
+    '@7': false,
+    '@8': false,
+    '@9': { size: 2, keys: [Array], '@a': 'New Label', '@b': 0.95 },
+    keys: [
+      '@1', '@3', '@4',
+      '@5', '@2', '@6',
+      '@7', '@8', '@9'
+    ],
+    size: 9
+  }
+}
+fresh summary is: {
+  finishedComputing: true,
+  uncheckedObservations: [],
+  rejected: [],
+  labels: { Howdy: 1, 'New Label': 1 },
+  observers: { p1: 2 },
+  usernames: Set(0) {},
+  videos: { e2HzKY5imTE: 2 },
+  counts: {
+    total: 2,
+    fromHuman: 2,
+    rejected: 0,
+    confirmed: 0,
+    disagreement: 0
+  }
+}
+calling convertSearchFilter
+"valueOf" in eachFilter is: true
+"valueOf" in eachFilter is: true
+mongoFilter is: { '@1': { '$eq': 'segment' }, '@3': { '$eq': 'e2HzKY5imTE' } }
+calling convertSearchFilter
+"valueOf" in eachFilter is: true
+"valueOf" in eachFilter is: true
+mongoFilter is: { '@1': { '$eq': 'segment' }, '@3': { '$eq': 'e2HzKY5imTE' } }
+returning getAll() results
+returning getAll() results
+filterAndSort is: {
+  maxlabelConfidence: '',
+  minlabelConfidence: '',
+  observer: 'p1',
+  kindOfObserver: 'Either',
+  validation: [ 'Unchecked', 'Confirmed', 'Rejected', 'Disagreement' ],
+  labelName: 'Howdy'
+}
+calling convertSearchFilter
+"valueOf" in eachFilter is: true
+"valueOf" in eachFilter is: true
+"valueOf" in eachFilter is: true
+mongoFilter is: {
+  '@1': { '$eq': 'segment' },
+  '@9.@a': { '$eq': 'Howdy' },
+  '@2': { '$eq': 'p1' }
+}
+[observationIterator] each is: {
+  type: 'segment',
+  observer: 'p1',
+  videoId: 'e2HzKY5imTE',
+  startTime: 10,
+  endTime: 20,
+  isHuman: true,
+  confirmedBySomeone: false,
+  rejectedBySomeone: false,
+  observation: {
+    label: 'Howdy',
+    labelConfidence: 0.95,
+    [Symbol(hiddenKeys)]: { size: 2, keys: [Array], '@a': 'Howdy', '@b': 0.95 }
+  },
+  [Symbol(hiddenKeys)]: {
+    _id: '0.5018240393943043',
+    '@1': 'segment',
+    '@2': 'p1',
+    '@3': 'e2HzKY5imTE',
+    '@4': 10,
+    '@5': 20,
+    '@6': true,
+    '@7': false,
+    '@8': false,
+    '@9': { size: 2, keys: [Array], '@a': 'Howdy', '@b': 0.95 },
+    keys: [
+      '@1', '@3', '@4',
+      '@5', '@2', '@6',
+      '@7', '@8', '@9'
+    ],
+    size: 9
+  }
+}
+fresh summary is: {
+  finishedComputing: true,
+  uncheckedObservations: [],
+  rejected: [],
+  labels: { Howdy: 1 },
+  observers: { p1: 1 },
+  usernames: Set(0) {},
+  videos: { e2HzKY5imTE: 1 },
+  counts: {
+    total: 1,
+    fromHuman: 1,
+    rejected: 0,
+    confirmed: 0,
+    disagreement: 0
+  }
+}
+calling convertSearchFilter
+"valueOf" in eachFilter is: true
+"valueOf" in eachFilter is: true
+mongoFilter is: { '@1': { '$eq': 'segment' }, '@3': { '$eq': 'e2HzKY5imTE' } }
+returning getAll() results
+{"t":{"$date":"2024-03-25T18:18:16.476-05:00"},"s":"I",  "c":"NETWORK",  "id":22944,   "ctx":"conn13","msg":"Connection ended","attr":{"remote":"127.0.0.1:51877","uuid":"91d5582c-20a0-4d9c-9c6a-71954dc8f469","connectionId":13,"connectionCount":4}}
+{"t":{"$date":"2024-03-25T18:18:16.942-05:00"},"s":"I",  "c":"NETWORK",  "id":22944,   "ctx":"conn12","msg":"Connection ended","attr":{"remote":"127.0.0.1:51876","uuid":"b3966ae3-99df-40e6-aa32-fcb0b277acf3","connectionId":12,"connectionCount":3}}
+{"t":{"$date":"2024-03-25T18:18:17.003-05:00"},"s":"I",  "c":"NETWORK",  "id":22944,   "ctx":"conn14","msg":"Connection ended","attr":{"remote":"127.0.0.1:51878","uuid":"e572ca90-baa9-4760-a933-335951a32e0e","connectionId":14,"connectionCount":2}}
