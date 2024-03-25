@@ -69,18 +69,6 @@ module.exports =  async ({ keyList }) => {
     // 
     // hard coded colors (probably should remove these)
     // 
-    results["neutral"] || (results["neutral"]={})
-    results["neutral"].color = "darkgray"
-    
-    results["surprise"] || (results["surprise"]={})
-    results["surprise"].color = "#fec355"
-
-    results["happy"] || (results["happy"]={})
-    results["happy"].color = "#26c6da"
-    
-    results["angry"] || (results["angry"]={})
-    results["angry"].color = "#e57373"
-    
     results["uncertain"] || (results["uncertain"]={})
     results["uncertain"].color = "gray"
 

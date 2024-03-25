@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+./commands/db/start
+./commands/server/start

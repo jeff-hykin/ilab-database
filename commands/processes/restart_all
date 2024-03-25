@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+./commands/processes/stop_all
+./commands/processes/clear
+./commands/processes/start_all

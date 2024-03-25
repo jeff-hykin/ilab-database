@@ -10,7 +10,7 @@ const { recursivelyAllAttributesOf, get, set, merge, valueIs, checkIf } = requir
 const pathToCompressionMapping = `${__dirname}/compressionMapping.json`
 // create compression mapping if needed
 if (!fs.existsSync(pathToCompressionMapping)) {
-    fs.writeFileSync(pathToCompressionMapping, "{}")
+    fs.writeFileSync(pathToCompressionMapping, `{"totalCount": 0, "getEncodedKeyFor": {}, "getOriginalKeyFor": {}}`)
 }
 const compressionMapping = require(pathToCompressionMapping)
 

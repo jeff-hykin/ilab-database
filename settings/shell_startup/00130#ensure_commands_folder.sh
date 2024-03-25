@@ -1,7 +1,7 @@
 # ensure commands folder exists
-if ! [[ -d "./settings/commands" ]]; then
+if ! [[ -d "./commands" ]]; then
     # remove a potenial file
-    rm -f ./settings/commands
+    rm -f ./commands
     # make the folder
-    mkdir ./settings/commands
+    mkdir ./commands
 fi

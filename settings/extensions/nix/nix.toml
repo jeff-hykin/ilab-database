@@ -54,7 +54,7 @@
 
 # version 14.17.1
 load = [ "nodejs",]
-from = "860b56be91fb874d48e23a950815969a7b832fbc" 
+from = "860b56be91fb874d48e23a950815969a7b832fbc" # "a332da8588aeea4feb9359d23f58d95520899e3c"
 
 # version 12.22.1
 # load = [ "nodejs-12_x",]
@@ -63,6 +63,14 @@ from = "860b56be91fb874d48e23a950815969a7b832fbc"
 # version 10.24.0
 # load = [ "nodejs-10_x",] 
 # from = "a765beccb52f30a30fee313fbae483693ffe200d" 
+
+[[packages]]
+load = [ "mongodb",] # 4.2 
+from = "ccc56fb2767c66e7061e409b78cae69091e02c4b"
+
+# [[packages]]
+# load = [ "mongodb-tools",]
+# from = "ccc56fb2767c66e7061e409b78cae69091e02c4b" # "a332da8588aeea4feb9359d23f58d95520899e3c"
 
 # 
 # Python (because node-gyp depends on python)
