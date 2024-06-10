@@ -34,10 +34,6 @@ function checkVideoId(observation) {
     if (typeof observation.videoId !== 'string') {
         throw Error(`\`videoId\` should be the id (string) of for the video. Instead it was ${observation.videoId}`)
     }
-    // TODO: remove this once video ids not on youtube are allowed
-    if (observation.videoId.length != 11) {
-        throw Error(`\`videoId\` isn't 11 characters long, so I don't think its a valid youtube id. The id was: ${observation.videoId}`)
-    }
 }
 
 function checkStartAndEndTime(observation) {
