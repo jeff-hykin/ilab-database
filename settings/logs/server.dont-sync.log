@@ -1276,3 +1276,259 @@ returning getAll() results
 {"t":{"$date":"2024-03-25T18:18:16.476-05:00"},"s":"I",  "c":"NETWORK",  "id":22944,   "ctx":"conn13","msg":"Connection ended","attr":{"remote":"127.0.0.1:51877","uuid":"91d5582c-20a0-4d9c-9c6a-71954dc8f469","connectionId":13,"connectionCount":4}}
 {"t":{"$date":"2024-03-25T18:18:16.942-05:00"},"s":"I",  "c":"NETWORK",  "id":22944,   "ctx":"conn12","msg":"Connection ended","attr":{"remote":"127.0.0.1:51876","uuid":"b3966ae3-99df-40e6-aa32-fcb0b277acf3","connectionId":12,"connectionCount":3}}
 {"t":{"$date":"2024-03-25T18:18:17.003-05:00"},"s":"I",  "c":"NETWORK",  "id":22944,   "ctx":"conn14","msg":"Connection ended","attr":{"remote":"127.0.0.1:51878","uuid":"e572ca90-baa9-4760-a933-335951a32e0e","connectionId":14,"connectionCount":2}}
+calling convertSearchFilter
+"valueOf" in eachFilter is: true
+mongoFilter is: { '@1': { '$eq': 'segment' } }
+calling convertSearchFilter
+mongoFilter is: {}
+calling convertSearchFilter
+"valueOf" in eachFilter is: true
+"valueOf" in eachFilter is: true
+mongoFilter is: { '@1': { '$eq': 'segment' }, '@3': { '$eq': 'e2HzKY5imTE' } }
+calling convertSearchFilter
+"valueOf" in eachFilter is: true
+"valueOf" in eachFilter is: true
+mongoFilter is: { '@1': { '$eq': 'segment' }, '@3': { '$eq': 'e2HzKY5imTE' } }
+{"t":{"$date":"2024-03-25T19:00:03.398-05:00"},"s":"I",  "c":"NETWORK",  "id":22943,   "ctx":"listener","msg":"Connection accepted","attr":{"remote":"127.0.0.1:55968","uuid":"2e3ec67c-40a5-48e0-be9b-e209ba207fe3","connectionId":15,"connectionCount":3}}
+{"t":{"$date":"2024-03-25T19:00:03.398-05:00"},"s":"I",  "c":"NETWORK",  "id":22943,   "ctx":"listener","msg":"Connection accepted","attr":{"remote":"127.0.0.1:55969","uuid":"791004f4-cf27-4412-9a1d-23cf4be9e808","connectionId":16,"connectionCount":4}}
+{"t":{"$date":"2024-03-25T19:00:03.399-05:00"},"s":"I",  "c":"NETWORK",  "id":51800,   "ctx":"conn15","msg":"client metadata","attr":{"remote":"127.0.0.1:55968","client":"conn15","doc":{"driver":{"name":"nodejs","version":"3.6.2"},"os":{"type":"Darwin","name":"darwin","architecture":"arm64","version":"21.6.0"},"platform":"'Node.js v14.17.1, LE (unified)"}}}
+{"t":{"$date":"2024-03-25T19:00:03.399-05:00"},"s":"I",  "c":"NETWORK",  "id":51800,   "ctx":"conn16","msg":"client metadata","attr":{"remote":"127.0.0.1:55969","client":"conn16","doc":{"driver":{"name":"nodejs","version":"3.6.2"},"os":{"type":"Darwin","name":"darwin","architecture":"arm64","version":"21.6.0"},"platform":"'Node.js v14.17.1, LE (unified)"}}}
+{"t":{"$date":"2024-03-25T19:00:03.399-05:00"},"s":"I",  "c":"NETWORK",  "id":22943,   "ctx":"listener","msg":"Connection accepted","attr":{"remote":"127.0.0.1:55970","uuid":"bcbc6c7c-701e-434c-b061-85825f947854","connectionId":17,"connectionCount":5}}
+{"t":{"$date":"2024-03-25T19:00:03.399-05:00"},"s":"I",  "c":"NETWORK",  "id":22943,   "ctx":"listener","msg":"Connection accepted","attr":{"remote":"127.0.0.1:55971","uuid":"fc9afd03-dbeb-4257-93fd-69fd5843fc6c","connectionId":18,"connectionCount":6}}
+{"t":{"$date":"2024-03-25T19:00:03.399-05:00"},"s":"I",  "c":"NETWORK",  "id":51800,   "ctx":"conn17","msg":"client metadata","attr":{"remote":"127.0.0.1:55970","client":"conn17","doc":{"driver":{"name":"nodejs","version":"3.6.2"},"os":{"type":"Darwin","name":"darwin","architecture":"arm64","version":"21.6.0"},"platform":"'Node.js v14.17.1, LE (unified)"}}}
+{"t":{"$date":"2024-03-25T19:00:03.400-05:00"},"s":"I",  "c":"NETWORK",  "id":51800,   "ctx":"conn18","msg":"client metadata","attr":{"remote":"127.0.0.1:55971","client":"conn18","doc":{"driver":{"name":"nodejs","version":"3.6.2"},"os":{"type":"Darwin","name":"darwin","architecture":"arm64","version":"21.6.0"},"platform":"'Node.js v14.17.1, LE (unified)"}}}
+calling convertSearchFilter
+"hiddenValueOf" in eachFilter is: true
+mongoFilter is: { _id: { '$nin': [ 'e2HzKY5imTE' ] } }
+returning getAll() results
+returning getAll() results
+returning getAll() results
+{"t":{"$date":"2024-03-25T19:00:03.402-05:00"},"s":"I",  "c":"NETWORK",  "id":22943,   "ctx":"listener","msg":"Connection accepted","attr":{"remote":"127.0.0.1:55972","uuid":"23a1997f-ed1e-4ec6-9dfe-84946c7548ee","connectionId":19,"connectionCount":7}}
+{"t":{"$date":"2024-03-25T19:00:03.403-05:00"},"s":"I",  "c":"NETWORK",  "id":51800,   "ctx":"conn19","msg":"client metadata","attr":{"remote":"127.0.0.1:55972","client":"conn19","doc":{"driver":{"name":"nodejs","version":"3.6.2"},"os":{"type":"Darwin","name":"darwin","architecture":"arm64","version":"21.6.0"},"platform":"'Node.js v14.17.1, LE (unified)"}}}
+filterAndSort is: {
+  maxlabelConfidence: '',
+  minlabelConfidence: '',
+  observer: 'p1',
+  kindOfObserver: 'Either',
+  validation: [ 'Unchecked', 'Confirmed', 'Rejected', 'Disagreement' ]
+}
+calling convertSearchFilter
+"valueOf" in eachFilter is: true
+"valueOf" in eachFilter is: true
+mongoFilter is: { '@1': { '$eq': 'segment' }, '@2': { '$eq': 'p1' } }
+[observationIterator] each is: {
+  type: 'segment',
+  observer: 'p1',
+  videoId: 'e2HzKY5imTE',
+  startTime: 10,
+  endTime: 20,
+  isHuman: true,
+  confirmedBySomeone: false,
+  rejectedBySomeone: false,
+  observation: {
+    label: 'Howdy',
+    labelConfidence: 0.95,
+    [Symbol(hiddenKeys)]: { size: 2, keys: [Array], '@a': 'Howdy', '@b': 0.95 }
+  },
+  [Symbol(hiddenKeys)]: {
+    _id: '0.5018240393943043',
+    '@1': 'segment',
+    '@2': 'p1',
+    '@3': 'e2HzKY5imTE',
+    '@4': 10,
+    '@5': 20,
+    '@6': true,
+    '@7': false,
+    '@8': false,
+    '@9': { size: 2, keys: [Array], '@a': 'Howdy', '@b': 0.95 },
+    keys: [
+      '@1', '@3', '@4',
+      '@5', '@2', '@6',
+      '@7', '@8', '@9'
+    ],
+    size: 9
+  }
+}
+[observationIterator] each is: {
+  type: 'segment',
+  observer: 'p1',
+  videoId: 'e2HzKY5imTE',
+  startTime: 1119.927,
+  endTime: 1121.522,
+  isHuman: true,
+  confirmedBySomeone: false,
+  rejectedBySomeone: false,
+  observation: {
+    label: 'New Label',
+    labelConfidence: 0.95,
+    [Symbol(hiddenKeys)]: { size: 2, keys: [Array], '@a': 'New Label', '@b': 0.95 }
+  },
+  [Symbol(hiddenKeys)]: {
+    _id: '0.610661869336524',
+    '@1': 'segment',
+    '@2': 'p1',
+    '@3': 'e2HzKY5imTE',
+    '@4': 1119.927,
+    '@5': 1121.522,
+    '@6': true,
+    '@7': false,
+    '@8': false,
+    '@9': { size: 2, keys: [Array], '@a': 'New Label', '@b': 0.95 },
+    keys: [
+      '@1', '@3', '@4',
+      '@5', '@2', '@6',
+      '@7', '@8', '@9'
+    ],
+    size: 9
+  }
+}
+fresh summary is: {
+  finishedComputing: true,
+  uncheckedObservations: [],
+  rejected: [],
+  labels: { Howdy: 1, 'New Label': 1 },
+  observers: { p1: 2 },
+  usernames: Set(0) {},
+  videos: { e2HzKY5imTE: 2 },
+  counts: {
+    total: 2,
+    fromHuman: 2,
+    rejected: 0,
+    confirmed: 0,
+    disagreement: 0
+  }
+}
+calling convertSearchFilter
+"valueOf" in eachFilter is: true
+"valueOf" in eachFilter is: true
+mongoFilter is: { '@1': { '$eq': 'segment' }, '@3': { '$eq': 'e2HzKY5imTE' } }
+returning getAll() results
+calling convertSearchFilter
+"valueOf" in eachFilter is: true
+"valueOf" in eachFilter is: true
+mongoFilter is: { '@1': { '$eq': 'segment' }, '@3': { '$eq': 'e2HzKY5imTE' } }
+returning getAll() results
+filterAndSort is: {
+  maxlabelConfidence: '',
+  minlabelConfidence: '',
+  observer: 'p1',
+  kindOfObserver: 'Either',
+  validation: [ 'Unchecked', 'Confirmed', 'Rejected', 'Disagreement' ],
+  labelName: 'Howdy'
+}
+calling convertSearchFilter
+"valueOf" in eachFilter is: true
+"valueOf" in eachFilter is: true
+"valueOf" in eachFilter is: true
+mongoFilter is: {
+  '@1': { '$eq': 'segment' },
+  '@9.@a': { '$eq': 'Howdy' },
+  '@2': { '$eq': 'p1' }
+}
+[observationIterator] each is: {
+  type: 'segment',
+  observer: 'p1',
+  videoId: 'e2HzKY5imTE',
+  startTime: 10,
+  endTime: 20,
+  isHuman: true,
+  confirmedBySomeone: false,
+  rejectedBySomeone: false,
+  observation: {
+    label: 'Howdy',
+    labelConfidence: 0.95,
+    [Symbol(hiddenKeys)]: { size: 2, keys: [Array], '@a': 'Howdy', '@b': 0.95 }
+  },
+  [Symbol(hiddenKeys)]: {
+    _id: '0.5018240393943043',
+    '@1': 'segment',
+    '@2': 'p1',
+    '@3': 'e2HzKY5imTE',
+    '@4': 10,
+    '@5': 20,
+    '@6': true,
+    '@7': false,
+    '@8': false,
+    '@9': { size: 2, keys: [Array], '@a': 'Howdy', '@b': 0.95 },
+    keys: [
+      '@1', '@3', '@4',
+      '@5', '@2', '@6',
+      '@7', '@8', '@9'
+    ],
+    size: 9
+  }
+}
+fresh summary is: {
+  finishedComputing: true,
+  uncheckedObservations: [],
+  rejected: [],
+  labels: { Howdy: 1 },
+  observers: { p1: 1 },
+  usernames: Set(0) {},
+  videos: { e2HzKY5imTE: 1 },
+  counts: {
+    total: 1,
+    fromHuman: 1,
+    rejected: 0,
+    confirmed: 0,
+    disagreement: 0
+  }
+}
+calling convertSearchFilter
+"valueOf" in eachFilter is: true
+"valueOf" in eachFilter is: true
+mongoFilter is: { '@1': { '$eq': 'segment' }, '@3': { '$eq': 'e2HzKY5imTE' } }
+calling convertSearchFilter
+"valueOf" in eachFilter is: true
+"valueOf" in eachFilter is: true
+mongoFilter is: { '@1': { '$eq': 'segment' }, '@3': { '$eq': 'e2HzKY5imTE' } }
+returning getAll() results
+returning getAll() results
+calling convertSearchFilter
+"valueOf" in eachFilter is: true
+"valueOf" in eachFilter is: true
+mongoFilter is: { '@1': { '$eq': 'segment' }, '@3': { '$eq': 'e2HzKY5imTE' } }
+returning getAll() results
+{"t":{"$date":"2024-03-25T19:08:10.443-05:00"},"s":"I",  "c":"NETWORK",  "id":22944,   "ctx":"conn15","msg":"Connection ended","attr":{"remote":"127.0.0.1:55968","uuid":"2e3ec67c-40a5-48e0-be9b-e209ba207fe3","connectionId":15,"connectionCount":6}}
+{"t":{"$date":"2024-03-25T19:09:44.929-05:00"},"s":"I",  "c":"NETWORK",  "id":22944,   "ctx":"conn19","msg":"Connection ended","attr":{"remote":"127.0.0.1:55972","uuid":"23a1997f-ed1e-4ec6-9dfe-84946c7548ee","connectionId":19,"connectionCount":3}}
+{"t":{"$date":"2024-03-25T19:09:44.929-05:00"},"s":"I",  "c":"NETWORK",  "id":22944,   "ctx":"conn17","msg":"Connection ended","attr":{"remote":"127.0.0.1:55970","uuid":"bcbc6c7c-701e-434c-b061-85825f947854","connectionId":17,"connectionCount":5}}
+{"t":{"$date":"2024-03-25T19:09:44.929-05:00"},"s":"I",  "c":"NETWORK",  "id":22944,   "ctx":"conn16","msg":"Connection ended","attr":{"remote":"127.0.0.1:55969","uuid":"791004f4-cf27-4412-9a1d-23cf4be9e808","connectionId":16,"connectionCount":4}}
+{"t":{"$date":"2024-03-25T19:09:44.929-05:00"},"s":"I",  "c":"NETWORK",  "id":22944,   "ctx":"conn18","msg":"Connection ended","attr":{"remote":"127.0.0.1:55971","uuid":"fc9afd03-dbeb-4257-93fd-69fd5843fc6c","connectionId":18,"connectionCount":2}}
+{"t":{"$date":"2024-03-26T08:58:07.671-05:00"},"s":"W",  "c":"NETWORK",  "id":4615610, "ctx":"conn1","msg":"Failed to check socket connectivity","attr":{"error":{"code":6,"codeName":"HostUnreachable","errmsg":"Connection reset by peer"}}}
+{"t":{"$date":"2024-03-26T08:58:07.671-05:00"},"s":"I",  "c":"-",        "id":20883,   "ctx":"conn1","msg":"Interrupted operation as its client disconnected","attr":{"opId":89012}}
+{"t":{"$date":"2024-03-26T08:58:07.675-05:00"},"s":"I",  "c":"NETWORK",  "id":22989,   "ctx":"conn1","msg":"Error sending response to client. Ending connection from remote","attr":{"error":{"code":9001,"codeName":"SocketException","errmsg":"Broken pipe"},"remote":"127.0.0.1:63766","connectionId":1}}
+{"t":{"$date":"2024-03-26T08:58:07.677-05:00"},"s":"I",  "c":"NETWORK",  "id":22944,   "ctx":"conn1","msg":"Connection ended","attr":{"remote":"127.0.0.1:63766","uuid":"d1f579cb-2981-4143-9102-a773685ee6ba","connectionId":1,"connectionCount":1}}
+{"t":{"$date":"2024-03-26T08:58:16.567-05:00"},"s":"I",  "c":"NETWORK",  "id":22943,   "ctx":"listener","msg":"Connection accepted","attr":{"remote":"127.0.0.1:57318","uuid":"cb4278cf-51f3-4a3d-a2fc-89e58a2dc2c1","connectionId":20,"connectionCount":2}}
+{"t":{"$date":"2024-03-26T08:58:16.570-05:00"},"s":"I",  "c":"NETWORK",  "id":51800,   "ctx":"conn20","msg":"client metadata","attr":{"remote":"127.0.0.1:57318","client":"conn20","doc":{"driver":{"name":"nodejs","version":"3.6.2"},"os":{"type":"Darwin","name":"darwin","architecture":"arm64","version":"21.6.0"},"platform":"'Node.js v14.17.1, LE (unified)"}}}
+{"t":{"$date":"2024-03-26T21:59:32.600-05:00"},"s":"W",  "c":"NETWORK",  "id":4615610, "ctx":"conn20","msg":"Failed to check socket connectivity","attr":{"error":{"code":6,"codeName":"HostUnreachable","errmsg":"Connection closed by peer"}}}
+{"t":{"$date":"2024-03-26T21:59:32.600-05:00"},"s":"I",  "c":"-",        "id":20883,   "ctx":"conn20","msg":"Interrupted operation as its client disconnected","attr":{"opId":516545}}
+{"t":{"$date":"2024-03-26T21:59:32.603-05:00"},"s":"I",  "c":"NETWORK",  "id":22944,   "ctx":"conn20","msg":"Connection ended","attr":{"remote":"127.0.0.1:57318","uuid":"cb4278cf-51f3-4a3d-a2fc-89e58a2dc2c1","connectionId":20,"connectionCount":1}}
+{"t":{"$date":"2024-03-26T22:15:10.713-05:00"},"s":"I",  "c":"NETWORK",  "id":22943,   "ctx":"listener","msg":"Connection accepted","attr":{"remote":"127.0.0.1:64660","uuid":"2624c346-8330-4162-95d5-c9fd70c5c80d","connectionId":21,"connectionCount":2}}
+{"t":{"$date":"2024-03-26T22:15:10.717-05:00"},"s":"I",  "c":"NETWORK",  "id":51800,   "ctx":"conn21","msg":"client metadata","attr":{"remote":"127.0.0.1:64660","client":"conn21","doc":{"driver":{"name":"nodejs","version":"3.6.2"},"os":{"type":"Darwin","name":"darwin","architecture":"arm64","version":"21.6.0"},"platform":"'Node.js v14.17.1, LE (unified)"}}}
+{"t":{"$date":"2024-03-27T11:55:02.018-05:00"},"s":"W",  "c":"NETWORK",  "id":4615610, "ctx":"conn21","msg":"Failed to check socket connectivity","attr":{"error":{"code":6,"codeName":"HostUnreachable","errmsg":"Connection closed by peer"}}}
+{"t":{"$date":"2024-03-27T11:55:02.018-05:00"},"s":"I",  "c":"-",        "id":20883,   "ctx":"conn21","msg":"Interrupted operation as its client disconnected","attr":{"opId":521683}}
+{"t":{"$date":"2024-03-27T11:55:02.018-05:00"},"s":"I",  "c":"NETWORK",  "id":22944,   "ctx":"conn21","msg":"Connection ended","attr":{"remote":"127.0.0.1:64660","uuid":"2624c346-8330-4162-95d5-c9fd70c5c80d","connectionId":21,"connectionCount":1}}
+{"t":{"$date":"2024-03-27T12:10:26.626-05:00"},"s":"I",  "c":"NETWORK",  "id":22943,   "ctx":"listener","msg":"Connection accepted","attr":{"remote":"127.0.0.1:49317","uuid":"75f7cd39-1bc1-4bdc-aff3-53000a0333a4","connectionId":22,"connectionCount":2}}
+{"t":{"$date":"2024-03-27T12:10:26.628-05:00"},"s":"I",  "c":"NETWORK",  "id":51800,   "ctx":"conn22","msg":"client metadata","attr":{"remote":"127.0.0.1:49317","client":"conn22","doc":{"driver":{"name":"nodejs","version":"3.6.2"},"os":{"type":"Darwin","name":"darwin","architecture":"arm64","version":"21.6.0"},"platform":"'Node.js v14.17.1, LE (unified)"}}}
+{"t":{"$date":"2024-03-27T16:31:55.998-05:00"},"s":"W",  "c":"NETWORK",  "id":4615610, "ctx":"conn22","msg":"Failed to check socket connectivity","attr":{"error":{"code":6,"codeName":"HostUnreachable","errmsg":"Connection reset by peer"}}}
+{"t":{"$date":"2024-03-27T16:31:55.998-05:00"},"s":"I",  "c":"-",        "id":20883,   "ctx":"conn22","msg":"Interrupted operation as its client disconnected","attr":{"opId":563626}}
+{"t":{"$date":"2024-03-27T16:31:55.999-05:00"},"s":"I",  "c":"NETWORK",  "id":22989,   "ctx":"conn22","msg":"Error sending response to client. Ending connection from remote","attr":{"error":{"code":9001,"codeName":"SocketException","errmsg":"Broken pipe"},"remote":"127.0.0.1:49317","connectionId":22}}
+{"t":{"$date":"2024-03-27T16:31:55.999-05:00"},"s":"I",  "c":"NETWORK",  "id":22944,   "ctx":"conn22","msg":"Connection ended","attr":{"remote":"127.0.0.1:49317","uuid":"75f7cd39-1bc1-4bdc-aff3-53000a0333a4","connectionId":22,"connectionCount":1}}
+{"t":{"$date":"2024-03-27T16:47:44.481-05:00"},"s":"I",  "c":"NETWORK",  "id":22943,   "ctx":"listener","msg":"Connection accepted","attr":{"remote":"127.0.0.1:54502","uuid":"4a855c0a-34bc-4c47-a1b2-ac2face3e72e","connectionId":23,"connectionCount":2}}
+{"t":{"$date":"2024-03-27T16:47:44.483-05:00"},"s":"I",  "c":"NETWORK",  "id":51800,   "ctx":"conn23","msg":"client metadata","attr":{"remote":"127.0.0.1:54502","client":"conn23","doc":{"driver":{"name":"nodejs","version":"3.6.2"},"os":{"type":"Darwin","name":"darwin","architecture":"arm64","version":"21.6.0"},"platform":"'Node.js v14.17.1, LE (unified)"}}}
+{"t":{"$date":"2024-03-28T19:32:50.832-05:00"},"s":"W",  "c":"NETWORK",  "id":4615610, "ctx":"conn23","msg":"Failed to check socket connectivity","attr":{"error":{"code":6,"codeName":"HostUnreachable","errmsg":"Connection closed by peer"}}}
+{"t":{"$date":"2024-03-28T19:32:50.833-05:00"},"s":"I",  "c":"-",        "id":20883,   "ctx":"conn23","msg":"Interrupted operation as its client disconnected","attr":{"opId":1007346}}
+{"t":{"$date":"2024-03-28T19:32:50.836-05:00"},"s":"I",  "c":"NETWORK",  "id":22944,   "ctx":"conn23","msg":"Connection ended","attr":{"remote":"127.0.0.1:54502","uuid":"4a855c0a-34bc-4c47-a1b2-ac2face3e72e","connectionId":23,"connectionCount":1}}
+{"t":{"$date":"2024-03-28T19:33:00.822-05:00"},"s":"I",  "c":"NETWORK",  "id":22943,   "ctx":"listener","msg":"Connection accepted","attr":{"remote":"127.0.0.1:61153","uuid":"12dcc1c6-814f-4d17-a1b3-b77be45f25ef","connectionId":24,"connectionCount":2}}
+{"t":{"$date":"2024-03-28T19:33:00.825-05:00"},"s":"I",  "c":"NETWORK",  "id":51800,   "ctx":"conn24","msg":"client metadata","attr":{"remote":"127.0.0.1:61153","client":"conn24","doc":{"driver":{"name":"nodejs","version":"3.6.2"},"os":{"type":"Darwin","name":"darwin","architecture":"arm64","version":"21.6.0"},"platform":"'Node.js v14.17.1, LE (unified)"}}}
+{"t":{"$date":"2024-03-29T10:25:32.678-05:00"},"s":"W",  "c":"NETWORK",  "id":4615610, "ctx":"conn24","msg":"Failed to check socket connectivity","attr":{"error":{"code":6,"codeName":"HostUnreachable","errmsg":"Connection closed by peer"}}}
+{"t":{"$date":"2024-03-29T10:25:32.678-05:00"},"s":"I",  "c":"-",        "id":20883,   "ctx":"conn24","msg":"Interrupted operation as its client disconnected","attr":{"opId":1012322}}
+{"t":{"$date":"2024-03-29T10:25:32.678-05:00"},"s":"I",  "c":"NETWORK",  "id":22944,   "ctx":"conn24","msg":"Connection ended","attr":{"remote":"127.0.0.1:61153","uuid":"12dcc1c6-814f-4d17-a1b3-b77be45f25ef","connectionId":24,"connectionCount":1}}
+{"t":{"$date":"2024-03-29T10:25:42.680-05:00"},"s":"I",  "c":"NETWORK",  "id":22943,   "ctx":"listener","msg":"Connection accepted","attr":{"remote":"127.0.0.1:62152","uuid":"d1228ab3-cf04-4f85-b972-d7daf315d6c7","connectionId":25,"connectionCount":2}}
+{"t":{"$date":"2024-03-29T10:25:42.681-05:00"},"s":"I",  "c":"NETWORK",  "id":51800,   "ctx":"conn25","msg":"client metadata","attr":{"remote":"127.0.0.1:62152","client":"conn25","doc":{"driver":{"name":"nodejs","version":"3.6.2"},"os":{"type":"Darwin","name":"darwin","architecture":"arm64","version":"21.6.0"},"platform":"'Node.js v14.17.1, LE (unified)"}}}
+{"t":{"$date":"2024-04-01T09:17:28.602-05:00"},"s":"W",  "c":"NETWORK",  "id":4615610, "ctx":"conn25","msg":"Failed to check socket connectivity","attr":{"error":{"code":6,"codeName":"HostUnreachable","errmsg":"Connection reset by peer"}}}
+{"t":{"$date":"2024-04-01T09:17:28.603-05:00"},"s":"I",  "c":"-",        "id":20883,   "ctx":"conn25","msg":"Interrupted operation as its client disconnected","attr":{"opId":2818102}}
+{"t":{"$date":"2024-04-01T09:17:28.607-05:00"},"s":"I",  "c":"NETWORK",  "id":22989,   "ctx":"conn25","msg":"Error sending response to client. Ending connection from remote","attr":{"error":{"code":9001,"codeName":"SocketException","errmsg":"Broken pipe"},"remote":"127.0.0.1:62152","connectionId":25}}
+{"t":{"$date":"2024-04-01T09:17:28.609-05:00"},"s":"I",  "c":"NETWORK",  "id":22944,   "ctx":"conn25","msg":"Connection ended","attr":{"remote":"127.0.0.1:62152","uuid":"d1228ab3-cf04-4f85-b972-d7daf315d6c7","connectionId":25,"connectionCount":1}}
+{"t":{"$date":"2024-04-01T09:29:58.219-05:00"},"s":"I",  "c":"NETWORK",  "id":22943,   "ctx":"listener","msg":"Connection accepted","attr":{"remote":"127.0.0.1:52296","uuid":"d3d6ac33-5c1c-4b6b-a823-7c4f266259a8","connectionId":26,"connectionCount":2}}
+{"t":{"$date":"2024-04-01T09:29:58.220-05:00"},"s":"I",  "c":"NETWORK",  "id":51800,   "ctx":"conn26","msg":"client metadata","attr":{"remote":"127.0.0.1:52296","client":"conn26","doc":{"driver":{"name":"nodejs","version":"3.6.2"},"os":{"type":"Darwin","name":"darwin","architecture":"arm64","version":"21.6.0"},"platform":"'Node.js v14.17.1, LE (unified)"}}}

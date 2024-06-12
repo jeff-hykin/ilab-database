@@ -4,6 +4,7 @@ const getUsernames = require("../interface/getUsernames")
 const getLabelNames = require("../interface/getLabelNames")
 const tooSimilarToExistingStrings = require("../toolbox/tooSimilarToExistingStrings")
 const { mongoInterface, } = require("../ezMongoDb/mongoSystem")
+const { toKebabCase, } = require("./string.js")
 
 const namePattern = /^[a-zA-Z0-9_\-.]+$/
 
@@ -74,6 +75,7 @@ async function checkObservation(observationEntry) {
     if (labelNames.length == 0) {
         labelNames = await getLabelNames()
     }
+    labelNames = labelNames.map(each=>toKebabCase(each.toLowerCase()))
     let stringThatWasToSimilar
     if (stringThatWasToSimilar = tooSimilarToExistingStrings({ existingStrings: labelNames, newString: observation.label })) {
         throw Error(`The observation's observation.label "${observation.label}" is similar to the existing observation.label "${stringThatWasToSimilar}".\nPlease choose a new name that is either significantly different or exactly the same`)

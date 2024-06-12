@@ -43,7 +43,7 @@ module.exports = slowlyUpdatingCachedOutput({
             rejected: [],
             labels: {},
             observers: {},
-            usernames: new Set(),
+            usernames: {},
             videos: {},
             counts: {
                 total: 0,
