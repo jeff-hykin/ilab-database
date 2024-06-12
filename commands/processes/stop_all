@@ -1,2 +1,19 @@
 #!/usr/bin/env bash
 npx pm2 stop all
+echo "One more thing"
+port_of_mongo="$(jq '.parameters.databaseSetup.port' package.json)"
+port_of_server="$(jq '.parameters.port' package.json)"
+
+# manually kill the mongo process
+if [ "$port_of_mongo" != "null" ]
+then
+    lsof -i tcp:$port_of_mongo | grep LISTEN | awk '{print $2}' | xargs kill -9 2>/dev/null
+fi
+
+# manually kill the server process
+if [ "$port_of_server" != "null" ]
+then
+    lsof -i tcp:$port_of_server | grep LISTEN | awk '{print $2}' | xargs kill -9 2>/dev/null
+fi
+sleep 1
+echo "All done"
