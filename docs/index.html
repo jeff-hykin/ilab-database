@@ -162,28 +162,28 @@
     // 
     const downloadOptions = {
         "Linux": html`
-            <DownloadButton href="https://github.com/jeff-hykin/ible/releases/latest/download/ible_Linux_x86_64">
+            <DownloadButton href="https://github.com/jeff-hykin/ible/releases/latest/download/x86_64-unknown-linux-gnu">
                 (x86_64)
             </DownloadButton>
             <Container row verticalAlignment="center">
                 <span color=gray max-width="10rem" display="inline-block">
                     Note: Unless you're using a Raspberry Pi, x86 is probably what you want
                 </span>
-                <DownloadButton href="https://github.com/jeff-hykin/ible/releases/latest/download/ible_Linux_Arm">
+                <DownloadButton href="https://github.com/jeff-hykin/ible/releases/latest/download/aarch64-unknown-linux-gnu">
                     (Arm)
                 </DownloadButton>
             </Container>
         `,
         "Mac OS": html`
-            <DownloadButton href="https://github.com/jeff-hykin/ible/releases/latest/download/ible_MacOS_AppleSilicon">
+            <DownloadButton href="https://github.com/jeff-hykin/ible/releases/latest/download/aarch64-apple-darwin">
                 (Apple Silicon)
             </DownloadButton>
-            <DownloadButton href="https://github.com/jeff-hykin/ible/releases/latest/download/ible_MacOS_Intel">
+            <DownloadButton href="https://github.com/jeff-hykin/ible/releases/latest/download/x86_64-apple-darwin">
                 (Intel)
             </DownloadButton>
         `,
         "Windows": html`
-            <DownloadButton href="https://github.com/jeff-hykin/ible/releases/latest/download/ible_Windows_x86_64.exe">
+            <DownloadButton href="https://github.com/jeff-hykin/ible/releases/latest/download/x86_64-pc-windows-msvc.exe">
                 (x86_64)
             </DownloadButton>
         `,
