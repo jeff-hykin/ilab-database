@@ -374,7 +374,7 @@
                 <Container
                     column
                     horizontalAlignment="center"
-                    onclick=${()=>downloadFile(href)}
+                    onclick=${()=>downloadIble(href)}
                     background="gray"
                     color="var(--off-white)"
                     box-shadow="0 4px 5px 0 rgba(0,0,0,0.10),0 1px 10px 0 rgba(0,0,0,0.08),0 2px 4px -1px rgba(0,0,0,0.24)"
@@ -391,10 +391,10 @@
                 </Container>
             `
         }
-        function downloadFile(url) {
+        function downloadIble(url) {
             const link = document.createElement('a')
             link.href = url
-            link.download = 'ible'
+            link.setAttribute('download', "ible.bin")
             document.body.appendChild(link)
             link.click()
             document.body.removeChild(link)
