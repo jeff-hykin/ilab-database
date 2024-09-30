@@ -163,16 +163,19 @@
     // 
     const downloadOptions = {
         "Linux": html`
-            <DownloadButton href="https://github.com/jeff-hykin/ible/releases/latest/download/ible-x86_64-unknown-linux-gnu.zip">
-                (x86_64)
-            </DownloadButton>
-            <Container row verticalAlignment="center">
-                <span color=gray max-width="10rem" display="inline-block">
-                    Note: Unless you're using a Raspberry Pi, x86 is probably what you want
-                </span>
-                <DownloadButton href="https://github.com/jeff-hykin/ible/releases/latest/download/ible-aarch64-unknown-linux-gnu.zip">
-                    (Arm)
+            <Container row verticalAlignment="center" >
+                <DownloadButton href="https://github.com/jeff-hykin/ible/releases/latest/download/ible-x86_64-unknown-linux-gnu.zip">
+                    (x86 64-bit)
                 </DownloadButton>
+                <DownloadButton href="https://github.com/jeff-hykin/ible/releases/latest/download/ible-aarch64-unknown-linux-gnu.zip">
+                    (Arm 64-bit)
+                </DownloadButton>
+                <Card max-height="16rem" overflow=auto>
+                    Note:<br>
+                    <span><span font-weight=bold>x86:</span> most Linux machines are x86</span>
+                    <br>
+                    <span><span font-weight=bold>Arm:</span> Raspberry Pi uses an Arm processor</span>
+                </Card>
             </Container>
         `,
         "Windows": html`
@@ -259,14 +262,14 @@
     if (mainDownloadName) {
         mainSuggestion = html`
             <OsOption downloadName=${mainDownloadName} /> 
-            <div height=5rem />
-            <h4 border-bottom="1px solid black" padding="0.5em" width="100%" color="gray" opacity=0.5>Other Downloads</h4>
+            <div height=3rem />
+            <h4 border-bottom="1px solid black" padding="0.5em" width="100%" color="gray" opacity=0.7>Other Downloads</h4>
         `
     }
     
     const otherDownloads = Object.keys(downloadOptions).filter(each => each !== mainDownloadName).map(
         each => html`
-            <OsOption downloadName=${each} opacity=${mainDownloadName?0.5:1} /> 
+            <OsOption downloadName=${each} opacity=${mainDownloadName?0.7:1} /> 
         `
     )
     
@@ -281,7 +284,7 @@
             align-items="center"
             background="whitesmoke"
             >
-                <img width="1009" height="497" alt="Screen Shot 2024-09-27 at 12 38 12 PM" src="${imageData}" padding="6rem">
+                <img width="1009" height="497" alt="logo" src="${imageData}" padding="5rem">
                 <Container column horizontalAlignment="left">
                     ${mainSuggestion}
                     ${otherDownloads}
