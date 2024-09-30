@@ -163,28 +163,28 @@
     // 
     const downloadOptions = {
         "Linux": html`
-            <DownloadButton href="https://github.com/jeff-hykin/ible/releases/latest/download/x86_64-unknown-linux-gnu">
+            <DownloadButton href="https://github.com/jeff-hykin/ible/releases/latest/download/ible-x86_64-unknown-linux-gnu">
                 (x86_64)
             </DownloadButton>
             <Container row verticalAlignment="center">
                 <span color=gray max-width="10rem" display="inline-block">
                     Note: Unless you're using a Raspberry Pi, x86 is probably what you want
                 </span>
-                <DownloadButton href="https://github.com/jeff-hykin/ible/releases/latest/download/aarch64-unknown-linux-gnu">
+                <DownloadButton href="https://github.com/jeff-hykin/ible/releases/latest/download/ible-aarch64-unknown-linux-gnu">
                     (Arm)
                 </DownloadButton>
             </Container>
         `,
         "Mac OS": html`
-            <DownloadButton href="https://github.com/jeff-hykin/ible/releases/latest/download/aarch64-apple-darwin">
+            <DownloadButton href="https://github.com/jeff-hykin/ible/releases/latest/download/ible-aarch64-apple-darwin">
                 (Apple Silicon)
             </DownloadButton>
-            <DownloadButton href="https://github.com/jeff-hykin/ible/releases/latest/download/x86_64-apple-darwin">
+            <DownloadButton href="https://github.com/jeff-hykin/ible/releases/latest/download/ible-x86_64-apple-darwin">
                 (Intel)
             </DownloadButton>
         `,
         "Windows": html`
-            <DownloadButton href="https://github.com/jeff-hykin/ible/releases/latest/download/x86_64-pc-windows-msvc.exe">
+            <DownloadButton href="https://github.com/jeff-hykin/ible/releases/latest/download/ible-x86_64-pc-windows-msvc.exe">
                 (x86_64)
             </DownloadButton>
         `,
@@ -394,7 +394,8 @@
         function downloadIble(url) {
             const link = document.createElement('a')
             link.href = url
-            link.setAttribute('download', "ible.bin")
+            link.setAttribute('download', "ible")
+            link.setAttribute('type', "application/prs.implied-executable")
             document.body.appendChild(link)
             link.click()
             document.body.removeChild(link)
